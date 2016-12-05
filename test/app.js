@@ -16,7 +16,7 @@ export var TestApp = (function () {
     }
     TestApp.decorators = [
         { type: Component, args: [{
-                    template: "\n\t<aw-grid [idField]=\"'1'\" [columnsDef]=\"colsDef\" [pageSize]=\"10\"\n\t\t[height]=\"'400px'\">\n\t</aw-grid>\n\t",
+                    template: "\n\t<aw-grid [idField]=\"'1'\" [columnsDef]=\"colsDef\" [pageSize]=\"60\"\n\t\t[height]=\"'400px'\">\n\t</aw-grid>\n\t",
                     selector: "test-app",
                     providers: [
                         {

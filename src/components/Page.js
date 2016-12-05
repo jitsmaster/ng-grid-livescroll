@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ElementRef } from '@angular/core';
 export var Page = (function () {
-    function Page() {
+    function Page(ele) {
+        this.ele = ele;
     }
     Page.decorators = [
         { type: Component, args: [{
@@ -9,7 +10,9 @@ export var Page = (function () {
                 },] },
     ];
     /** @nocollapse */
-    Page.ctorParameters = [];
+    Page.ctorParameters = [
+        { type: ElementRef, },
+    ];
     Page.propDecorators = {
         'pageService': [{ type: Input },],
     };

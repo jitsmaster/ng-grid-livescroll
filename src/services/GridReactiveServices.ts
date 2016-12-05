@@ -101,6 +101,8 @@ export class ReactiveGridService {
 							pages - 1 ? lastPageSize : this.pageSize));
 
 					this._pagesSubject.next(this.pageServices);
+
+					this.isFirstRequest = false;
 				}
 
 				//if all rows are returned, set them directly, otherwise, set the first one

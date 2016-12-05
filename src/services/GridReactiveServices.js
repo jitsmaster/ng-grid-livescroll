@@ -83,6 +83,7 @@ export var ReactiveGridService = (function () {
                     return new ReactiveGridPageService(_this.columnsDef, _this.idField, pages - 1 ? lastPageSize : _this.pageSize);
                 });
                 _this._pagesSubject.next(_this.pageServices);
+                _this.isFirstRequest = false;
             }
             //if all rows are returned, set them directly, otherwise, set the first one
             if (resp.rows && resp.rows.length > 0) {

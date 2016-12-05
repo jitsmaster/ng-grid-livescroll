@@ -27,6 +27,7 @@
     "src/components/Cell.ts",
     "src/components/HeaderColumn.ts",
     "src/components/Page.ts",
+    "src/directives/liveScroll.ts",
     "src/main.ts",
     "src/models/enums.ts",
     "src/models/GridModels.ts",

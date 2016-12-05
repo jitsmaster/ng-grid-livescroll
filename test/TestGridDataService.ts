@@ -18,7 +18,7 @@ export class TestGridDataService extends GridDataServiceBase {
 			(v, k) => {
 				var rowData = {};
 				Array.from({ length: 5 }, (vc, kc) => {
-					return k * (page + 1) + kc;
+					return page + "-" + (k * 10 + kc);
 				}).forEach((val, index) => {
 					rowData[index + ""] = val;
 				})

@@ -7,4 +7,7 @@ import { ReactiveGridPageService } from '../services/GridReactiveServices';
 })
 export class Page {
 	@Input() pageService: ReactiveGridPageService;
+	constructor(public ele: ElementRef) {
+		
+	}
 }

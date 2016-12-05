@@ -7,7 +7,7 @@ import { TestGridDataService } from './TestGridDataService';
 
 @Component({
 	template: `
-	<aw-grid [idField]="'1'" [columnsDef]="colsDef" [pageSize]="10"
+	<aw-grid [idField]="'1'" [columnsDef]="colsDef" [pageSize]="60"
 		[height]="'400px'">
 	</aw-grid>
 	`,

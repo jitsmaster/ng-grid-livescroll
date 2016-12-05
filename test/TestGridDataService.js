@@ -22,7 +22,7 @@ export var TestGridDataService = (function (_super) {
         var data = Array.from({ length: pageSize }, function (v, k) {
             var rowData = {};
             Array.from({ length: 5 }, function (vc, kc) {
-                return k * (page + 1) + kc;
+                return page + "-" + (k * 10 + kc);
             }).forEach(function (val, index) {
                 rowData[index + ""] = val;
             });
