@@ -1,0 +1,39 @@
+.awgrid {
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: stretch;
+  border: 1px solid lightgray;
+}
+.awgrid .thead {
+  border-bottom: 1px solid lightgray;
+  flex: 0 1 auto;
+  display: block;
+}
+.awgrid .thead .th {
+  display: table-cell;
+  border-right: 1px solid lightgray;
+  font-size: 1.2em;
+  padding: 4px;
+}
+.awgrid .thead .th:last-of-type {
+  border-right: none;
+}
+.awgrid .tbody {
+  flex: 1 1 auto;
+  overflow: auto;
+}
+.awgrid .tbody .tpage .tr {
+  border-bottom: 1px solid lightgray;
+  display: block;
+  line-height: 1rem;
+  min-height: 1.3em;
+}
+.awgrid .tbody .tpage .tr .td {
+  display: table-cell;
+  border-right: 1px solid lightgray;
+  font-size: 1.0em;
+  padding: 4px;
+}
+.awgrid .tbody .tpage .tr .td:last-of-type {
+  border-right: none;
+}

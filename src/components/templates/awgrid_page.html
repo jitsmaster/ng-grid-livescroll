@@ -1,0 +1,4 @@
+<div class="tr" *ngFor="let row of pageService.rows | async">
+	<div class="td" awgrid-td *ngFor="let cell of row.data" [model]="cell">
+	</div>
+</div>

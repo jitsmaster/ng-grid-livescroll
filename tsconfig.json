@@ -23,7 +23,14 @@
   "files": [
     "node_modules/typescript/lib/lib.es6.d.ts",
     "src/app.module.ts",
-    "src/AwGrid.ts",
-    "src/main.ts"
+    "src/components/AwGrid.ts",
+    "src/components/Cell.ts",
+    "src/components/HeaderColumn.ts",
+    "src/components/Page.ts",
+    "src/main.ts",
+    "src/models/enums.ts",
+    "src/models/GridModels.ts",
+    "src/services/GridDataService.ts",
+    "src/services/GridReactiveServices.ts"
   ]
 }

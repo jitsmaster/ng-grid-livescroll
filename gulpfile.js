@@ -26,6 +26,7 @@ var gulpPlugins = require('gulp-load-plugins')();
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var rollup = require('gulp-rollup');
+var less = require('gulp-less');
 
 // clean the contents of the distribution directory
 gulp.task('clean', function () {
@@ -64,8 +65,14 @@ gulp.task('tslint', function () {
 	  .pipe(gulpPlugins.tslint.report('verbose'));
 });
 
+gulp.task('less', function () {
+  return gulp.src('./src/components/templates/awgrid.less')
+    .pipe(less({}))
+    .pipe(gulp.dest('./src/components/templates'));
+});
+
 // TypeScript compile
-gulp.task('compile', ['clean', 'tsconfig-glob'], function (cb) {
+gulp.task('compile', ['clean', 'less', 'tsconfig-glob'], function (cb) {
 
 	////in order to bundle with module name, have to manually create config
 	//var manualConfig = typescript.createProject('tsconfig.json', {
