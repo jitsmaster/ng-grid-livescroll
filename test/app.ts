@@ -21,12 +21,16 @@ import { TestGridDataService } from './TestGridDataService';
 })
 export class TestApp {
 	colsDef : GridColumnDef[] = Array.from({length: 5}, (v, k) => {
-		return {
+		var colDef = {
 			field: k + "",
 			label: "Column " + k ,
 			sortable: true,
-			width: 200,
 			widthUnit: WidthUnitType.px
 		} as GridColumnDef;
+
+		if (k < 4)
+			colDef.width = 200;
+
+		return colDef;
 	});
 }

@@ -1,15 +1,13 @@
-<div class="awgrid"
-	[style.height]="height">
-	<div class="thead">
-		<div aw-grid-head-col 
-			class="th" *ngFor="let colDef of columnsDef" [model]="colDef"></div>
+<div class="awgrid" [style.height]="height"
+	 >
+	<div class="thead" [scrollLeft]="liveScroll.scrollLeft | async">
+		<div>
+			<div aw-grid-head-col class="th" *ngFor="let colDef of columnsDef" [model]="colDef"></div>
+		</div>
 	</div>
 	<div class="tbody"
-		live-scroll 
-		[pages]="pages"
-		(onScroll)="onLiveScroll($event)">
-		<div aw-grid-page class="tpage"
-			*ngFor="let page of dataService.pages | async"
-			[pageService]="page"></div>
+		live-scroll [pages]="pages"
+		(onLiveScroll)="onLiveScroll($event)">
+		<div aw-grid-page class="tpage" *ngFor="let page of dataService.pages | async" [pageService]="page"></div>
 	</div>
 </div>

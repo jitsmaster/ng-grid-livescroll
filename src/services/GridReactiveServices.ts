@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { WidthUnitType } from '../models/enums';
 import { GridColumnDef, GridDataRequest, GridDataResponse, GridRow } from '../models/GridModels';
 import { GridDataServiceBase } from './GridDataService';
 
@@ -19,7 +20,14 @@ export class ReactiveGridPageService {
 		this._rowsSubject.next(Array.from({ length: rowsCount }, (v, k) => {
 			return {
 				id: "",
-				data: []
+				data: [{
+					colDef: {
+						field: "id",
+						width: 100,
+						widthUnit: WidthUnitType.percent
+					} as GridColumnDef,
+					value: ""
+				}]
 			};
 		}));
 	}

@@ -6,7 +6,9 @@ import { WidthUnitType } from '../models/enums';
 	templateUrl:"./templates/awgrid_cell.html",
 	selector: "[awgrid-td]",
 	host: {
-		'[style.width]': 'colWidth'
+		'[style.width]': 'colWidth',
+		'[style.minWidth]': 'colWidth',
+		'[style.maxWidth]': 'colWidth'
 	}
 })
 export class Cell {

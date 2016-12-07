@@ -3,18 +3,20 @@ import { GridColumnDef } from '../models/GridModels';
 import { WidthUnitType } from '../models/enums';
 
 @Component({
-	templateUrl:"./templates/awgrid_column.html",
-	selector:"[aw-grid-head-col]",
+	templateUrl: "./templates/awgrid_column.html",
+	selector: "[aw-grid-head-col]",
 	host: {
-		'[style.width]': 'colWidth'
+		'[style.width]': 'colWidth',
+		'[style.minWidth]': 'colWidth',
+		'[style.maxWidth]': 'colWidth'
 	}
 })
 export class HeaderColumn {
 
-	@Input() model : GridColumnDef;
+	@Input() model: GridColumnDef;
 
 	get colWidth(): string {
-		return this.model.width 
+		return this.model.width
 			+ (this.model.widthUnit == WidthUnitType.px ? "px" : "%");
 	}
 

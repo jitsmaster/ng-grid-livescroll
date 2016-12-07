@@ -12,9 +12,10 @@ export class LiveScroll {
 	@Input() pages: Page[];
 
 	constructor(private ele: ElementRef) {
-		this.onScroll = this.onScrollI
-			.debounceTime(500)
+		this.onLiveScroll = this.onScrollI
+			.debounceTime(300)
 			.map(evt => {
+				//detect visible pages
 				var container = this.ele.nativeElement as HTMLElement;
 				var scrollTop = container.scrollTop;
 
@@ -32,10 +33,18 @@ export class LiveScroll {
 					.filter(p => p > -1);
 
 				return visiblePages;
+				// return [];
+			});
+
+		this.scrollLeft = this.onScrollI
+			.map(evt => {
+				var container = this.ele.nativeElement as HTMLElement;
+				return container.scrollLeft;
 			});
 	}
 
-	@Output() onScroll: Observable<number[]>;
+	@Output() onLiveScroll: Observable<number[]>;
+	@Output() scrollLeft: Observable<number>;
 
 	onScrollI: EventEmitter<UIEvent> = new EventEmitter<UIEvent>();
 
