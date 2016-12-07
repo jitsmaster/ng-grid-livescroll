@@ -12,10 +12,6 @@
     "suppressImplicitAnyIndexErrors": true,
     "declaration": true
   },
-  "filesGlob": [
-    "src/**/*.ts",
-    "node_modules/typescript/lib/lib.es6.d.ts"
-  ],
   "angularCompilerOptions": {
     "genDir": "aot",
     "skipMetadataEmit": true,
