@@ -1,5 +1,10 @@
 {
   "name": "Ng2-Grid-LiveScroll",
+  "author": {
+    "name": "Arnold Wang",
+    "email": "arnold.wang@ingeniux.com"
+  },
+  "publisher": "Ingeniux Corporation",
   "description": "A Angular 2 Grid that is reactive, client/server side live-scroll",
   "homepage": "http://www.ingeniux.com",
   "version": "1.0.0",
