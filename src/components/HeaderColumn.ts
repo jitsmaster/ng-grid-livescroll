@@ -15,9 +15,18 @@ export class HeaderColumn {
 
 	@Input() model: GridColumnDef;
 
+	get minWidth(): string {
+		if (this.model.minWidth)
+			this.model.minWidth
+				+ (this.model.widthUnit == WidthUnitType.px ? "px" : "%");
+		else 
+			return this.colWidth;
+	}
+
 	get colWidth(): string {
-		return this.model.width
-			+ (this.model.widthUnit == WidthUnitType.px ? "px" : "%");
+		if (this.model.width)
+			return this.model.width
+				+ (this.model.widthUnit == WidthUnitType.px ? "px" : "%");
 	}
 
 	get label(): string {

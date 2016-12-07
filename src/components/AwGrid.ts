@@ -38,6 +38,10 @@ export class AwGrid implements AfterViewInit {
 	}
 
 	ngAfterViewInit() {
+		if (!this.columnsDef.find(val => !val.width))
+			//auto resize the last row
+			this.columnsDef[this.columnsDef.length - 1].width = null;
+			
 		this.dataService.initialize(this.pageSize, this.columnsDef, this.idField);
 		this.dataService.currentPage = 0;
 		this.dataService.requestData("", false);

@@ -1,9 +1,9 @@
 import { Component, Input, ElementRef } from '@angular/core';
-import { GridColumnDef, GridCell} from '../models/GridModels';
+import { GridColumnDef, GridCell } from '../models/GridModels';
 import { WidthUnitType } from '../models/enums';
 
 @Component({
-	templateUrl:"./templates/awgrid_cell.html",
+	templateUrl: "./templates/awgrid_cell.html",
 	selector: "[awgrid-td]",
 	host: {
 		'[style.width]': 'colWidth',
@@ -13,11 +13,19 @@ import { WidthUnitType } from '../models/enums';
 })
 export class Cell {
 
-	@Input() model : GridCell;
+	@Input() model: GridCell;
+
+	get minWidth(): string {
+		if (this.model.colDef.minWidth)
+			return this.model.colDef.minWidth
+				+ (this.model.colDef.widthUnit == WidthUnitType.px ? "px" : "%");
+		else return this.colWidth;
+	}
 
 	get colWidth(): string {
-		return this.model.colDef.width 
-			+ (this.model.colDef.widthUnit == WidthUnitType.px ? "px" : "%");
+		if (this.model.colDef.width)
+			return this.model.colDef.width
+				+ (this.model.colDef.widthUnit == WidthUnitType.px ? "px" : "%");
 	}
 
 	get value(): string {

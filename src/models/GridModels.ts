@@ -4,6 +4,7 @@ export class GridColumnDef {
 	label: string;
 	field: string;
 	width: number;
+	minWidth: number;
 	widthUnit: WidthUnitType;
 	formatter: (cellData, cellIndex: number, rowData, rowIndex: number) => string;
 	sortable: boolean;

@@ -25,11 +25,10 @@ export class TestApp {
 			field: k + "",
 			label: "Column " + k ,
 			sortable: true,
+			width: 200,
+			minWidth: 200,
 			widthUnit: WidthUnitType.px
 		} as GridColumnDef;
-
-		if (k < 4)
-			colDef.width = 200;
 
 		return colDef;
 	});

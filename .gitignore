@@ -1,7 +1,12 @@
 node_modules/
 aot/
 dist/
+src/**/*.css
 src/**/*.d.ts
 src/*.d.ts
 src/**/*.js
 src/*.js
+test/**/*.d.ts
+test/*.d.ts
+test/**/*.js
+test/*.js
