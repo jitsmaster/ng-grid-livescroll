@@ -72,7 +72,7 @@ gulp.task('less', function () {
 });
 
 // TypeScript compile
-gulp.task('compile', ['clean', 'less', 'tsconfig-glob'], function (cb) {
+gulp.task('compile', ['clean', 'less'], function (cb) {
 
 	////in order to bundle with module name, have to manually create config
 	//var manualConfig = typescript.createProject('tsconfig.json', {
