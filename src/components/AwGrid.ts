@@ -7,6 +7,7 @@
 	ChangeDetectionStrategy
 } from '@angular/core';
 import { ReactiveGridService } from '../services/GridReactiveServices';
+import { SortingService } from '../services/SortingService';
 import { GridColumnDef } from '../models/GridModels';
 import { LiveScroll } from '../directives/liveScroll';
 import { Page } from './Page';
@@ -15,7 +16,7 @@ import { Page } from './Page';
 	selector: 'aw-grid',
 	templateUrl: './templates/awgrid.html',
 	styleUrls: ['./templates/awgrid.css'],
-	providers: [ReactiveGridService],
+	providers: [ReactiveGridService, SortingService],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -41,7 +42,7 @@ export class AwGrid implements AfterViewInit {
 		if (!this.columnsDef.find(val => !val.width))
 			//auto resize the last row
 			this.columnsDef[this.columnsDef.length - 1].width = null;
-			
+
 		this.dataService.initialize(this.pageSize, this.columnsDef, this.idField);
 		this.dataService.currentPage = 0;
 		this.dataService.requestData("", false);
@@ -51,7 +52,7 @@ export class AwGrid implements AfterViewInit {
 		pagesToLoad.forEach(
 			page => {
 				this.dataService.currentPage = page;
-				this.dataService.requestData("", false);
+				this.dataService.requestData(this.dataService.sortField, this.dataService.sortDsc);
 			});
 	}
 }

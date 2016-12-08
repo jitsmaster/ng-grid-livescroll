@@ -81,7 +81,17 @@ export class ReactiveGridService {
 	= new BehaviorSubject<ReactiveGridPageService[]>([]);
 	pages: Observable<ReactiveGridPageService[]> = this._pagesSubject.asObservable();
 
+	sortField: string;
+	sortDsc: boolean;
+
 	requestData(sortField: string, sortDsc: boolean) {
+		if (sortField != this.sortField
+			|| sortDsc != this.sortDsc)
+			this.isFirstRequest = true;
+
+		this.sortField = sortField;
+		this.sortDsc = sortDsc;
+
 		//if all rows already set, use it directly,
 		//this is the client side live scroll
 		if (this.allRows) {

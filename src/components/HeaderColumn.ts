@@ -1,25 +1,33 @@
 import { Component, Input, ElementRef } from '@angular/core';
-import { GridColumnDef } from '../models/GridModels';
+import { GridColumnDef, SortState } from '../models/GridModels';
 import { WidthUnitType } from '../models/enums';
+import { AsyncPipeService } from '../services/AsyncPipeService';
+import { ReactiveGridService } from '../services/GridReactiveServices';
+import { SortingService } from '../services/SortingService';
 
 @Component({
-	templateUrl: "./templates/awgrid_column.html",
+	templateUrl: "./templates/HeaderColumn.html",
 	selector: "[aw-grid-head-col]",
 	host: {
 		'[style.width]': 'colWidth',
 		'[style.minWidth]': 'colWidth',
-		'[style.maxWidth]': 'colWidth'
+		'[style.maxWidth]': 'colWidth',
+		'(click)': 'sort()'
 	}
 })
 export class HeaderColumn {
 
 	@Input() model: GridColumnDef;
 
+	constructor(public gridReactiveService: ReactiveGridService,
+		public sortingService: SortingService) {
+	}
+
 	get minWidth(): string {
 		if (this.model.minWidth)
 			this.model.minWidth
 				+ (this.model.widthUnit == WidthUnitType.px ? "px" : "%");
-		else 
+		else
 			return this.colWidth;
 	}
 
@@ -31,5 +39,14 @@ export class HeaderColumn {
 
 	get label(): string {
 		return this.model.label;
+	}
+
+	sort() {
+		if (!this.model.sortable) {
+			return;
+		}
+
+		this.sortingService.sort(this.model);
+		this.gridReactiveService.requestData(this.model.field, this.sortingService.sortState.currentState.descending);
 	}
 }

@@ -1,4 +1,5 @@
 import { WidthUnitType } from './enums';
+import { AsyncPipeService } from '../Services/AsyncPipeService';
 
 export class GridColumnDef {
 	label: string;
@@ -30,4 +31,10 @@ export class GridCell {
 export class GridRow {
 	id: string;
 	data: GridCell[]
+}
+
+export class SortState {
+	sorting: boolean;
+	descending: boolean;
+	column: GridColumnDef;
 }
