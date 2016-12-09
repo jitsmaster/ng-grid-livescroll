@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { WidthUnitType } from '../models/enums';
 import { GridColumnDef, GridDataRequest, GridDataResponse, GridRow } from '../models/GridModels';
 import { GridDataServiceBase } from './GridDataService';
+import { AsyncPipeService } from './AsyncPipeService';
 
 @Injectable()
 export class ReactiveGridPageService {
@@ -20,6 +21,8 @@ export class ReactiveGridPageService {
 		this._rowsSubject.next(Array.from({ length: rowsCount }, (v, k) => {
 			return {
 				id: "",
+				// selected: new AsyncPipeService<boolean>(false),
+				selected: false,
 				data: [{
 					colDef: {
 						field: "id",
@@ -28,7 +31,7 @@ export class ReactiveGridPageService {
 					} as GridColumnDef,
 					value: ""
 				}]
-			};
+			} as GridRow;
 		}));
 	}
 
@@ -38,6 +41,8 @@ export class ReactiveGridPageService {
 			this._rowsSubject.next(rowsData.map((rowData, rowIndex) => {
 				return {
 					id: rowData[this.idField],
+					// selected: new AsyncPipeService<boolean>(false),
+					selected: false,
 					data: this.columnsDef.map((colDef, colIndex) => {
 						var value = colDef.formatter ? colDef.formatter(
 							rowData[colDef.field], colIndex,

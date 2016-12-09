@@ -1,13 +1,14 @@
-import { Component, Input, Output, ElementRef, Renderer } from '@angular/core';
+import { Component, Input, Output, ElementRef, Renderer, EventEmitter } from '@angular/core';
+import { GridRow } from '../models/GridModels';
 import { ReactiveGridPageService } from '../services/GridReactiveServices';
+import { SelectService } from '../services/SelectService';
 
 @Component({
-	templateUrl: "./templates/awgrid_page.html",
+	templateUrl: "./templates/Page.html",
 	selector: "[aw-grid-page]"
 })
 export class Page {
 	@Input() pageService: ReactiveGridPageService;
-	constructor(public ele: ElementRef) {
-		
+	constructor(public ele: ElementRef, public selectService: SelectService) {
 	}
 }

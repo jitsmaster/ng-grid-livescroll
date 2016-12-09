@@ -8,6 +8,7 @@
 } from '@angular/core';
 import { ReactiveGridService } from '../services/GridReactiveServices';
 import { SortingService } from '../services/SortingService';
+import { SelectService } from '../services/SelectService';
 import { GridColumnDef } from '../models/GridModels';
 import { LiveScroll } from '../directives/liveScroll';
 import { Page } from './Page';
@@ -16,7 +17,7 @@ import { Page } from './Page';
 	selector: 'aw-grid',
 	templateUrl: './templates/awgrid.html',
 	styleUrls: ['./templates/awgrid.css'],
-	providers: [ReactiveGridService, SortingService],
+	providers: [ReactiveGridService, SortingService, SelectService],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -35,7 +36,7 @@ export class AwGrid implements AfterViewInit {
 		return this._pages.map(p => p);
 	}
 
-	constructor(public dataService: ReactiveGridService) {
+	constructor(public dataService: ReactiveGridService, public selectService: SelectService) {
 	}
 
 	ngAfterViewInit() {

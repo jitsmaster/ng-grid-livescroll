@@ -3,7 +3,7 @@ import { GridColumnDef, GridCell } from '../models/GridModels';
 import { WidthUnitType } from '../models/enums';
 
 @Component({
-	templateUrl: "./templates/awgrid_cell.html",
+	templateUrl: "./templates/Cell.html",
 	selector: "[awgrid-td]",
 	host: {
 		'[style.width]': 'colWidth',

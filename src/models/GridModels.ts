@@ -30,6 +30,8 @@ export class GridCell {
 
 export class GridRow {
 	id: string;
+	// selected: AsyncPipeService<boolean> = new AsyncPipeService<boolean>(false);
+	selected: boolean = false;
 	data: GridCell[]
 }
 
@@ -37,4 +39,15 @@ export class SortState {
 	sorting: boolean;
 	descending: boolean;
 	column: GridColumnDef;
+}
+
+export class SelectItemsState {
+	ids: string[];
+}
+
+export class SelectRangeState {
+	fromPage: number;
+	toPage: number;
+	fromPageRow: number;
+	toPageRow: number;
 }
