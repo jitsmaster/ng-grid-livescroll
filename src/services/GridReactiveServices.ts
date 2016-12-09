@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { WidthUnitType } from '../models/enums';
 import { GridColumnDef, GridDataRequest, GridDataResponse, GridRow } from '../models/GridModels';
 import { GridDataServiceBase } from './GridDataService';
+import { SelectService } from './SelectService';
 import { AsyncPipeService } from './AsyncPipeService';
 
 @Injectable()
@@ -35,10 +36,12 @@ export class ReactiveGridPageService {
 		}));
 	}
 
+	rowsState: GridRow[];
+
 	setData(rowsData: any[]) {
 		//prevent setting page data repeatedly
-		if (!this.clientDataFullfilled)
-			this._rowsSubject.next(rowsData.map((rowData, rowIndex) => {
+		if (!this.clientDataFullfilled) {
+			this.rowsState = rowsData.map((rowData, rowIndex) => {
 				return {
 					id: rowData[this.idField],
 					// selected: new AsyncPipeService<boolean>(false),
@@ -54,7 +57,9 @@ export class ReactiveGridPageService {
 						};
 					})
 				};
-			}));
+			});
+			this._rowsSubject.next(this.rowsState);
+		};
 
 		this.clientDataFullfilled = true;
 	}
@@ -62,7 +67,8 @@ export class ReactiveGridPageService {
 
 @Injectable()
 export class ReactiveGridService {
-	constructor(public dataService: GridDataServiceBase) {
+	constructor(public dataService: GridDataServiceBase,
+		public selectService: SelectService) {
 	}
 
 	initialize(pageSize: number, columnsDef: GridColumnDef[], idField: string) {
@@ -89,13 +95,16 @@ export class ReactiveGridService {
 	sortField: string;
 	sortDsc: boolean;
 
-	requestData(sortField: string, sortDsc: boolean) {
+	selectedIds: string[];
+
+	requestData(sortField: string, sortDsc: boolean, selectedIds?: string[]) {
 		if (sortField != this.sortField
 			|| sortDsc != this.sortDsc)
 			this.isFirstRequest = true;
 
 		this.sortField = sortField;
 		this.sortDsc = sortDsc;
+		this.selectedIds = selectedIds;
 
 		//if all rows already set, use it directly,
 		//this is the client side live scroll
@@ -135,8 +144,16 @@ export class ReactiveGridService {
 						this.allRows = resp.rows;
 					}
 
-					if (resp.rows.length <= this.pageSize)
+					if (resp.rows.length <= this.pageSize) {
 						this.pageServices[this.currentPage].setData(resp.rows);
+						if (this.selectedIds) {
+							var selectedRows = this.pageServices[this.currentPage]
+								.rowsState
+								.filter(r => this.selectedIds.find(id => r.id == id));
+
+							this.selectService.selectMany(selectedRows);
+						}
+					}
 					else
 						throw new Error("Invalid grid data: Page data overflow.");
 				}

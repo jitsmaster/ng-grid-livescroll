@@ -26,7 +26,8 @@ export class SelectService {
 	}
 
 	additionalSelect(row: GridRow) {
-		this.selected.push(row);
+		if (!this.selected.find(r => r == row))
+			this.selected.push(row);
 		// row.selected.triggerUpdate(true);
 		row.selected = true;
 	}

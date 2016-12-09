@@ -27,6 +27,8 @@ export class AwGrid implements AfterViewInit {
 	@Input() pageSize = 100;
 	@Input() height: string;
 
+	@Input() selected: string[];
+
 	@ViewChild(LiveScroll) liveScroll: LiveScroll;
 	@ViewChildren(Page) _pages: QueryList<Page>;
 
@@ -46,14 +48,28 @@ export class AwGrid implements AfterViewInit {
 
 		this.dataService.initialize(this.pageSize, this.columnsDef, this.idField);
 		this.dataService.currentPage = 0;
-		this.dataService.requestData("", false);
+		this.dataService.requestData("", false, this.selected);
+	}
+
+	select(ids?: string[]) {
+		if (ids)
+			this.selected = ids;
+
+		//use reducer to realize selectMany
+		var selectedRows = this.dataService.pageServices
+			.map(s => s.rowsState)
+			.reduce((x, y) => x.concat(y))
+			.filter(r => this.selected.find(id => id == r.id));
+
+		this.selectService.selectMany(selectedRows);
 	}
 
 	onLiveScroll(pagesToLoad: number[]) {
 		pagesToLoad.forEach(
 			page => {
 				this.dataService.currentPage = page;
-				this.dataService.requestData(this.dataService.sortField, this.dataService.sortDsc);
+				this.dataService
+					.requestData(this.dataService.sortField, this.dataService.sortDsc);
 			});
 	}
 }

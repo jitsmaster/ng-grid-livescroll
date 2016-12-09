@@ -8,7 +8,8 @@ import { TestGridDataService } from './TestGridDataService';
 @Component({
 	template: `
 	<aw-grid [idField]="'1'" [columnsDef]="colsDef" [pageSize]="60"
-		[height]="'400px'">
+		[height]="'400px'"
+		[selected]="['0-41', '0-11']">
 	</aw-grid>
 	`,
 	selector: "test-app",
