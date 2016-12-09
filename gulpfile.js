@@ -90,7 +90,7 @@ gulp.task('compile', ['clean', 'less'], function (cb) {
 	//	.pipe(gulp.dest('.'));
 
 
-	exec('"node_modules\\.bin\\ngc" -p tsconfig.json', function (err, stdout, stderr) {
+	exec('"node_modules\\.bin\\ngc" -p tsconfig_aot.json', function (err, stdout, stderr) {
 		console.log(stdout);
 		//console.log(stderr);
 		cb(err);

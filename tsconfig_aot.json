@@ -2,7 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "sourceMap": false,
     "emitDecoratorMetadata": true,
@@ -12,6 +12,11 @@
     "suppressImplicitAnyIndexErrors": true,
     "declaration": true
   },
+  "angularCompilerOptions": {
+    "genDir": "aot",
+    "skipMetadataEmit": true,
+    "debug": true
+  },
   "files": [
     "node_modules/typescript/lib/lib.es6.d.ts",
     "src/app.module.ts",
@@ -19,8 +24,8 @@
     "src/components/Cell.ts",
     "src/components/HeaderColumn.ts",
     "src/components/Page.ts",
-    "src/components/Row.ts",
     "src/directives/liveScroll.ts",
+    "src/components/Row.ts",
     "src/main.ts",
     "src/models/enums.ts",
     "src/models/GridModels.ts",
