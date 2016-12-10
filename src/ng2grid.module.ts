@@ -2,20 +2,17 @@ import { NgModule, NgZone } from "@angular/core";
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
-import { TestApp } from '../test/app';
 import { AwGrid } from './components/AwGrid';
 import { LiveScroll } from './directives/liveScroll';
 import { Page } from './components/Page';
 import { HeaderColumn } from './components/HeaderColumn';
 import { Row } from './components/Row';
 import { Cell } from './components/Cell';
-import { TestGridDataService } from '../test/TestGridDataService';
 
 @NgModule({
-	imports: [BrowserModule, HttpModule],
-	declarations: [TestApp, AwGrid, LiveScroll, Page, HeaderColumn, Row, Cell],
-	providers: [TestGridDataService],
+	imports:[BrowserModule, HttpModule],
+	declarations: [AwGrid, LiveScroll, Page, HeaderColumn, Row, Cell],
+	exports: [AwGrid, LiveScroll, Page, HeaderColumn, Row, Cell],	
 	entryComponents: [],
-	bootstrap: [TestApp]
 })
-export class AppModule { }
+export class Ng2GridModule { }

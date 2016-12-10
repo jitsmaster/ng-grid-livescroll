@@ -4,14 +4,16 @@ import commonjs    from 'rollup-plugin-commonjs';
 import uglify      from 'rollup-plugin-uglify'
 
 export default {
-	entry: 'test/main.js',
-	dest: 'dist/main.js', // output a single application bundle
+	entry: 'test_node_module/main.js',
+	dest: 'dist/main_module.js', // output a single application bundle
 	sourceMap: false,
 	format: 'iife',
 	plugins: [
 		nodeResolve({jsnext: true, module: true}),
 		commonjs({
-			include: ['node_modules/rxjs/**', 'node_modules/ng2-bootstrap/**'],
+			include: ['node_modules/rxjs/**', 
+				'node_modules/ng2-bootstrap/**',
+				'node_modules/ng2-Grid-LiveScroll/**'],
 			namedExports: {
 				// left-hand side can be an absolute path, a path
 				// relative to the current directory, or the name

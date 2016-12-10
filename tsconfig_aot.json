@@ -7,29 +7,36 @@
     "sourceMap": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
+    "removeComments": true,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
     "declaration": true
   },
   "angularCompilerOptions": {
     "genDir": "aot",
-    "skipMetadataEmit": true,
-    "debug": true
+    "skipMetadataEmit": false,
+    "debug": false
   },
   "files": [
     "node_modules/typescript/lib/lib.es6.d.ts",
-    "src/app.module.ts",
+    "Grid.ts",
+    "test/app.module.ts",
+    "src/ng2grid.module.ts",
     "src/components/AwGrid.ts",
     "src/components/Cell.ts",
     "src/components/HeaderColumn.ts",
     "src/components/Page.ts",
     "src/directives/liveScroll.ts",
     "src/components/Row.ts",
-    "src/main.ts",
+    "test/main.ts",
     "src/models/enums.ts",
     "src/models/GridModels.ts",
     "src/services/GridDataService.ts",
     "src/services/GridReactiveServices.ts"
+  ],
+
+  "exclude": [
+    "node_modules",
+    "src/**/*.d.ts"
   ]
 }

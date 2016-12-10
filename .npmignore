@@ -1,0 +1,15 @@
+# Node generated files
+node_modules
+test
+test_node_module
+npm-debug.log
+# OS generated files
+Thumbs.db
+.DS_Store
+# Ignored files
+*.less
+*.ts
+!*.d.ts
+index.*
+rollup*.js
+tsconfi*.json

@@ -97,6 +97,31 @@ gulp.task('compile', ['clean', 'less'], function (cb) {
 	});
 });
 
+gulp.task('compile-test', ['clean', 'less'], function (cb) {
+
+	////in order to bundle with module name, have to manually create config
+	//var manualConfig = typescript.createProject('tsconfig.json', {
+	//	"module": "commonjs",
+	//	"experimentalDecorators": true,
+	//	"emitDecoratorMetadata": true,
+	//	"target": "es5"
+	//});
+
+	//return gulp
+	//	.src(tscConfig.files, { base: "./" })
+	//	.pipe(gulpPlugins.inlineNg2Template({ useRelativePaths: true }))
+	//	.pipe(manualConfig())
+	//	.pipe(uglify())
+	//	.pipe(gulp.dest('.'));
+
+
+	exec('"node_modules\\.bin\\ngc" -p tsconfig_aot_test.json', function (err, stdout, stderr) {
+		console.log(stdout);
+		//console.log(stderr);
+		cb(err);
+	});
+});
+
 // update the tsconfig files based on the glob pattern
 gulp.task('tsconfig-glob', function () {
 	return tsconfig({
@@ -105,7 +130,7 @@ gulp.task('tsconfig-glob', function () {
 	});
 });
 
-gulp.task('build', ['tslint', 'compile', 'concat:libs'], function (cb) {
+gulp.task('build', ['tslint', 'compile', 'concat-debug:libs'], function (cb) {
 	//var b = browserify("./ngscripts/main.js", {
 	//	debug: true
 	//})
@@ -134,6 +159,23 @@ gulp.task('build-debug', ['tslint', 'compile', 'concat-debug:libs'], function (c
 	//	.pipe(gulp.dest('./dist'));
 
 	exec('"node_modules\\.bin\\rollup" -c rollup-config-debug.js', function (err, stdout, stderr) {
+		console.log(stdout);
+		//console.log(stderr);
+		cb(err);
+	});
+});
+
+gulp.task('build-test', ['tslint', 'compile-test', 'concat-debug:libs'], function (cb) {
+	//var b = browserify("./ngscripts/main.js", {
+	//	debug: true
+	//})
+
+	//return b.bundle()
+	//	.pipe(source('migrator.js'))
+	//	.pipe(buffer())
+	//	.pipe(gulp.dest('./dist'));
+
+	exec('"node_modules\\.bin\\rollup" -c rollup-config-test.js', function (err, stdout, stderr) {
 		console.log(stdout);
 		//console.log(stderr);
 		cb(err);

@@ -1,12 +1,17 @@
 node_modules/
 aot/
 dist/
+build/
 src/**/*.css
 src/**/*.d.ts
 src/*.d.ts
 src/**/*.js
 src/*.js
+src/**/*.map
+src/**/*.metadata.json
 test/**/*.d.ts
 test/*.d.ts
 test/**/*.js
 test/*.js
+test/**/*.map
+test/**/*.metadata.json

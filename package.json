@@ -1,5 +1,5 @@
 {
-  "name": "Ng2-Grid-LiveScroll",
+  "name": "ng2-grid-livescroll",
   "author": {
     "name": "Arnold Wang",
     "email": "arnold.wang@ingeniux.com"
@@ -7,10 +7,11 @@
   "publisher": "Ingeniux Corporation",
   "description": "A Angular 2 Grid that is reactive, client/server side live-scroll",
   "homepage": "http://www.ingeniux.com",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "license": "MIT",
   "scripts": {
-    "serve": "gulp build-debug && http-server -p 9292"
+    "serve": "gulp build-debug && http-server -p 9292",
+    "module_test": "gulp build-test && http-server -p 9292"
   },
   "dependencies": {
     "@angular/common": "2.2.4",
@@ -49,5 +50,7 @@
     "typescript": "^2.0.8",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
-  }
+  },
+  "main": "./dish/ng2grid.js",
+  "typings": "./index.d.ts"
 }

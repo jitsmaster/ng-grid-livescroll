@@ -1,0 +1,25 @@
+﻿{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "declaration": true
+  },
+  "angularCompilerOptions": {
+    "genDir": "aot",
+    "skipMetadataEmit": false,
+    "debug": true
+  },
+  "files": [
+    "node_modules/typescript/lib/lib.es6.d.ts",
+    "test_node_module/app.module.ts",
+    "test_node_module/main.ts"
+  ]
+}
