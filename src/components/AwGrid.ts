@@ -6,6 +6,7 @@
 	ViewEncapsulation,
 	ChangeDetectionStrategy
 } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs/Rx';
 import { ReactiveGridService } from '../services/GridReactiveServices';
 import { SortingService } from '../services/SortingService';
 import { SelectService } from '../services/SelectService';
@@ -23,8 +24,16 @@ import { Page } from './Page';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AwGrid implements AfterViewInit {
+	private _colsSubj = new BehaviorSubject<GridColumnDef[]>([]);
+	columns = this._colsSubj.asObservable();
+
 	@Input() idField: string;
-	@Input() columnsDef: GridColumnDef[];
+
+	private _colsDef: GridColumnDef[];
+	@Input() set columnsDef(cols: GridColumnDef[]) {
+		this._colsDef = cols;
+		this._colsSubj.next(cols);
+	}
 	@Input() pageSize = 100;
 	@Input() height: string;
 
@@ -51,16 +60,18 @@ export class AwGrid implements AfterViewInit {
 	ngAfterViewInit() {
 		this.selectService.selectionMode = this.selectionMode;
 
-		if (!this.columnsDef.find(val => !val.width))
+		if (!!this._colsDef && this._colsDef.length > 0 && !this._colsDef.find(val => !val.width))
 			//auto resize the last row
-			this.columnsDef[this.columnsDef.length - 1].width = null;
+			this._colsDef[this._colsDef.length - 1].width = null;
 
-		this.dataService.initialize(this.pageSize, this.columnsDef, this.idField);
-		this.dataService.currentPage = 0;
-		this.dataService.requestData("", false, this.selected);
+		if (this._colsDef && this._colsDef.length > 0)
+			this.refresh();
 	}
 
 	refresh() {
+		this.dataService.initialize(this.pageSize, this._colsDef, this.idField);
+		this.dataService.currentPage = 0;
+		this.liveScroll.reset();
 		this.dataService.refresh();
 	}
 

@@ -51,4 +51,9 @@ export class LiveScroll {
 	handleScroll(evt: UIEvent) {
 		this.onScrollI.emit(evt);
 	}
+
+	reset() {
+		this.ele.nativeElement.scrollTop = 0;
+		this.ele.nativeElement.scrollLeft = 0;
+	}
 }
