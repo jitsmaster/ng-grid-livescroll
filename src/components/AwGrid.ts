@@ -60,6 +60,10 @@ export class AwGrid implements AfterViewInit {
 		this.dataService.requestData("", false, this.selected);
 	}
 
+	refresh() {
+		this.dataService.refresh();
+	}
+
 	select(ids?: string[]) {
 		if (ids)
 			this.selected = ids;

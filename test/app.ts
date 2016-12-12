@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { AwGrid } from '../src/components/AwGrid';
 import { WidthUnitType } from '../src/models/enums';
 import { GridColumnDef, GridRow } from '../src/models/GridModels';
@@ -7,6 +7,7 @@ import { TestGridDataService } from './TestGridDataService';
 
 @Component({
 	template: `
+	<button (click)="refresh()">Refresh</button>
 	<aw-grid [idField]="'1'" [columnsDef]="colsDef" [pageSize]="60"
 		[height]="'400px'"
 		[selected]="['0-41', '0-11']"
@@ -29,7 +30,7 @@ import { TestGridDataService } from './TestGridDataService';
 })
 export class TestApp {
 	_logs: string[] = [];
-	logs: EventEmitter< string[]> = new EventEmitter<string[]>();
+	logs: EventEmitter<string[]> = new EventEmitter<string[]>();
 	colsDef: GridColumnDef[] = Array.from({ length: 5 }, (v, k) => {
 		var colDef = {
 			field: k + "",
@@ -49,5 +50,11 @@ export class TestApp {
 	onSelect(rows: GridRow[]) {
 		this._logs.push("Selected: " + rows.map(r => r.id).join(", "));
 		this.logs.emit(this._logs);
+	}
+
+	@ViewChild(AwGrid) grid: AwGrid;
+
+	refresh() {
+		this.grid.refresh();
 	}
 }

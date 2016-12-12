@@ -97,6 +97,11 @@ export class ReactiveGridService {
 
 	selectedIds: string[];
 
+	refresh() {
+		this.isFirstRequest = true;
+		this.requestData("", false);
+	}
+
 	requestData(sortField: string, sortDsc: boolean, selectedIds?: string[]) {
 		if (sortField != this.sortField
 			|| sortDsc != this.sortDsc)
