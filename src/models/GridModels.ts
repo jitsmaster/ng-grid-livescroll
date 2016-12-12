@@ -32,7 +32,8 @@ export class GridRow {
 	id: string;
 	// selected: AsyncPipeService<boolean> = new AsyncPipeService<boolean>(false);
 	selected: boolean = false;
-	data: GridCell[]
+	data: GridCell[];
+	rawData: any;
 }
 
 export class SortState {

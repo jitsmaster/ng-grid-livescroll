@@ -33,6 +33,7 @@ export class AwGrid implements AfterViewInit {
 	@Input() set columnsDef(cols: GridColumnDef[]) {
 		this._colsDef = cols;
 		this._colsSubj.next(cols);
+		this.refresh();
 	}
 	@Input() pageSize = 100;
 	@Input() height: string;

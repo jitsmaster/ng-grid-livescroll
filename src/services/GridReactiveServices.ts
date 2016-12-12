@@ -38,9 +38,12 @@ export class ReactiveGridPageService {
 
 	rowsState: GridRow[];
 
+	//this is kind of change detection within Observable
+	private _currentRowsData: any[];
+
 	setData(rowsData: any[]) {
 		//prevent setting page data repeatedly
-		if (!this.clientDataFullfilled) {
+		if (!this.clientDataFullfilled || this._currentRowsData != rowsData) {
 			this.rowsState = rowsData.map((rowData, rowIndex) => {
 				return {
 					id: rowData[this.idField],
@@ -55,13 +58,16 @@ export class ReactiveGridPageService {
 							colDef: colDef,
 							value: value
 						};
-					})
+					}),
+					rawData: rowData
 				};
 			});
 			this._rowsSubject.next(this.rowsState);
-		};
 
-		this.clientDataFullfilled = true;
+			this._currentRowsData = rowsData
+
+			this.clientDataFullfilled = true;
+		};
 	}
 }
 
@@ -126,6 +132,8 @@ export class ReactiveGridService {
 
 		this.dataService.requestData(this.currentPage, this.pageSize, sortField, sortDsc)
 			.subscribe(resp => {
+				if (!resp)
+					return;
 
 				if (this.isFirstRequest) {
 					var lastPageSize = resp.totalCount % this.pageSize || this.pageSize;
