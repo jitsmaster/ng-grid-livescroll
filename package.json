@@ -7,7 +7,7 @@
   "publisher": "Ingeniux Corporation",
   "description": "A Angular 2 Grid that is reactive, client/server side live-scroll",
   "homepage": "http://www.ingeniux.com",
-  "version": "1.0.9",
+  "version": "1.0.13",
   "license": "MIT",
   "scripts": {
     "serve": "gulp build-debug && http-server -p 9292",
@@ -51,6 +51,5 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
-  "main": "./dish/ng2grid.js",
-  "typings": "./index.d.ts"
+  "main": "./dist/ng2grid.js"
 }
