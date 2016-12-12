@@ -9,7 +9,8 @@
 import { ReactiveGridService } from '../services/GridReactiveServices';
 import { SortingService } from '../services/SortingService';
 import { SelectService } from '../services/SelectService';
-import { GridColumnDef } from '../models/GridModels';
+import { SelectionMode } from '../models/enums';
+import { GridColumnDef, GridRow } from '../models/GridModels';
 import { LiveScroll } from '../directives/liveScroll';
 import { Page } from './Page';
 
@@ -27,10 +28,13 @@ export class AwGrid implements AfterViewInit {
 	@Input() pageSize = 100;
 	@Input() height: string;
 
+	@Input() selectionMode: SelectionMode = SelectionMode.multiple;
 	@Input() selected: string[];
 
 	@ViewChild(LiveScroll) liveScroll: LiveScroll;
 	@ViewChildren(Page) _pages: QueryList<Page>;
+
+	@Output() onSelect: EventEmitter<GridRow[]> = new EventEmitter<GridRow[]>();
 
 	get pages(): Page[] {
 		if (!this._pages)
@@ -39,9 +43,14 @@ export class AwGrid implements AfterViewInit {
 	}
 
 	constructor(public dataService: ReactiveGridService, public selectService: SelectService) {
+		this.selectService.onSelect.subscribe(evt => {
+			this.onSelect.emit(evt);
+		});
 	}
 
 	ngAfterViewInit() {
+		this.selectService.selectionMode = this.selectionMode;
+
 		if (!this.columnsDef.find(val => !val.width))
 			//auto resize the last row
 			this.columnsDef[this.columnsDef.length - 1].width = null;

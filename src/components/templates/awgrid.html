@@ -1,5 +1,4 @@
-<div class="awgrid" [style.height]="height"
-	 >
+<div class="awgrid" [style.height]="height" >
 	<div class="thead" [scrollLeft]="liveScroll.scrollLeft | async">
 		<div>
 			<div aw-grid-head-col class="th" *ngFor="let colDef of columnsDef" [model]="colDef"></div>

@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input, Output, EventEmitter } from '@angular/core';
 import { AsyncPipeService } from './AsyncPipeService';
+import { SelectionMode } from '../models/enums';
 import { GridRow, SelectItemsState, SelectRangeState } from '../models/GridModels';
 
 @Injectable()
@@ -7,6 +8,9 @@ export class SelectService {
 	selected: GridRow[] = [];
 
 	startSelected: GridRow;
+
+	@Input() selectionMode: SelectionMode = SelectionMode.multiple;
+	@Output() onSelect: EventEmitter<GridRow[]> = new EventEmitter<GridRow[]>();
 
 	clear() {
 		if (this.selected) {
@@ -26,10 +30,14 @@ export class SelectService {
 	}
 
 	additionalSelect(row: GridRow) {
+		if (this.selected.length > 0 && this.selectionMode == SelectionMode.single)
+			return;
+
 		if (!this.selected.find(r => r == row))
 			this.selected.push(row);
 		// row.selected.triggerUpdate(true);
 		row.selected = true;
+		this.onSelect.emit(this.selected);
 	}
 
 	selectMany(rows: GridRow[]) {
