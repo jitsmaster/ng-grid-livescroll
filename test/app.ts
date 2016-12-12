@@ -11,7 +11,7 @@ import { TestGridDataService } from './TestGridDataService';
 	<aw-grid [idField]="'1'" [columnsDef]="colsDef" [pageSize]="60"
 		[height]="'400px'"
 		[selected]="['0-41', '0-11']"
-		[selectionMode]="0"
+		[selectionMode]="1"
 		(onSelect)="onSelect($event)">
 	</aw-grid>
 	<div style="height: 400px">

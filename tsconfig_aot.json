@@ -19,7 +19,6 @@
   },
   "files": [
     "node_modules/typescript/lib/lib.es6.d.ts",
-    "Grid.ts",
     "test/app.module.ts",
     "src/ng2grid.module.ts",
     "src/components/AwGrid.ts",

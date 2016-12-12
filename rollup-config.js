@@ -8,7 +8,7 @@ export default {
 	dest: 'dist/ng2grid.js', // output a single application bundle
 	sourceMap: false,
 	format: 'iife',
-	moduleName: "ng2grid",
+	moduleName: "Grid",
 	plugins: [
 		nodeResolve({ jsnext: true, module: true }),
 		commonjs({
