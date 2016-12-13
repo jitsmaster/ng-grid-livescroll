@@ -26,12 +26,15 @@
     "src/components/HeaderColumn.ts",
     "src/components/Page.ts",
     "src/directives/liveScroll.ts",
+    "src/directives/ColumnResizer.ts",
+    "src/directives/ResizePlaceHolder.ts",
     "src/components/Row.ts",
     "test/main.ts",
     "src/models/enums.ts",
     "src/models/GridModels.ts",
     "src/services/GridDataService.ts",
-    "src/services/GridReactiveServices.ts"
+    "src/services/GridReactiveServices.ts",
+    "src/services/ColumnResizeService.ts"
   ],
 
   "exclude": [

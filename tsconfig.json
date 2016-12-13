@@ -21,6 +21,8 @@
     "src/components/HeaderColumn.ts",
     "src/components/Page.ts",
     "src/directives/liveScroll.ts",
+    "src/directives/ColumnResizer.ts",
+    "src/directives/ResizePlaceHolder.ts",
     "src/components/Row.ts",
     "test/main.ts",
     "src/models/enums.ts",
@@ -29,6 +31,7 @@
     "src/services/GridReactiveServices.ts",
     "src/services/AsyncPipeService.ts",
     "src/services/SelectService.ts",
-    "src/services/SortingService.ts"      
+    "src/services/SortingService.ts",
+    "src/services/ColumnResizeService.ts"
   ]
 }

@@ -7,10 +7,10 @@
   "publisher": "Ingeniux Corporation",
   "description": "A Angular 2 Grid that is reactive, client/server side live-scroll",
   "homepage": "http://www.ingeniux.com",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "license": "MIT",
   "scripts": {
-    "pub": "gulp && npm publish",
+    "pub": "npm version patch && gulp && npm publish",
     "serve": "gulp build-debug && http-server -p 9292",
     "module_test": "gulp build-test && http-server -p 9292"
   },
