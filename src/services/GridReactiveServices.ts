@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { WidthUnitType } from '../models/enums';
 import { GridColumnDef, GridDataRequest, GridDataResponse, GridRow } from '../models/GridModels';
@@ -170,6 +170,6 @@ export class ReactiveGridService {
 					else
 						throw new Error("Invalid grid data: Page data overflow.");
 				}
-			})
+			});
 	}
 }

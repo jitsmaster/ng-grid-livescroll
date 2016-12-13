@@ -7,7 +7,7 @@
     ChangeDetectionStrategy
 } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
-import { ReactiveGridService } from '../services/GridReactiveServices';
+import { ReactiveGridService, ReactiveGridPageService } from '../services/GridReactiveServices';
 import { SortingService } from '../services/SortingService';
 import { SelectService } from '../services/SelectService';
 import { SelectionMode } from '../models/enums';
@@ -26,6 +26,8 @@ import { Page } from './Page';
 export class AwGrid implements AfterViewInit {
     private _colsSubj = new BehaviorSubject<GridColumnDef[]>([]);
     columns = this._colsSubj.asObservable();
+
+	pageServices : Observable<ReactiveGridPageService[]>;
 
     @Input() idField: string;
 
@@ -56,6 +58,12 @@ export class AwGrid implements AfterViewInit {
         this.selectService.onSelect.subscribe(evt => {
             this.onSelect.emit(evt);
         });
+
+		this.pageServices = this.dataService.pages
+			.map(pages => {
+				setTimeout(() => this.fit(), 100);
+				return pages;
+			});
     }
 
     ngAfterViewInit() {
@@ -78,7 +86,6 @@ export class AwGrid implements AfterViewInit {
         this.dataService.currentPage = 0;
         this.liveScroll.reset();
         this.dataService.refresh();
-		this.fit();
     }
 
     select(ids?: string[]) {

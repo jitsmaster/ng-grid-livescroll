@@ -65,6 +65,7 @@ export class LiveScroll {
 
 	handleScroll(evt: UIEvent) {
 		this.onScrollI.emit(evt);
+		this.fit();
 	}
 
 	reset() {
