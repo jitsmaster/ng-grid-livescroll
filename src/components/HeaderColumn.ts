@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 import { GridColumnDef, SortState } from '../models/GridModels';
 import { WidthUnitType } from '../models/enums';
 import { AsyncPipeService } from '../services/AsyncPipeService';

@@ -11,6 +11,12 @@ export class GridColumnDef {
 	sortable: boolean;
 }
 
+export class GridColumnResizeModel {
+	colDef: GridColumnDef;
+	columnDomNode: HTMLElement;
+	mouseLeft: number;
+}
+
 export class GridDataRequest {
 	page: number;
 	pageSize: number

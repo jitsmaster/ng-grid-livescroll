@@ -37,7 +37,7 @@ export class TestApp {
 			label: "Column " + k,
 			sortable: true,
 			width: 200,
-			minWidth: 200,
+			minWidth: 100,
 			widthUnit: WidthUnitType.px,
 			formatter: (cellData, cellIndex, rowData, rowIndex) => {
 				return cellData + "<span>Row:" + rowIndex + " - Cell: " + cellIndex + "</span>"

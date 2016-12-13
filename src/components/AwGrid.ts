@@ -10,6 +10,7 @@ import { BehaviorSubject, Observable } from 'rxjs/Rx';
 import { ReactiveGridService, ReactiveGridPageService } from '../services/GridReactiveServices';
 import { SortingService } from '../services/SortingService';
 import { SelectService } from '../services/SelectService';
+import { ColumnResizeService } from '../services/ColumnResizeService';
 import { SelectionMode } from '../models/enums';
 import { GridColumnDef, GridRow } from '../models/GridModels';
 import { LiveScroll } from '../directives/liveScroll';
@@ -19,7 +20,7 @@ import { Page } from './Page';
     selector: 'aw-grid',
     templateUrl: './templates/awgrid.html',
     styleUrls: ['./templates/awgrid.css'],
-    providers: [ReactiveGridService, SortingService, SelectService],
+    providers: [ReactiveGridService, SortingService, SelectService, ColumnResizeService],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -75,6 +76,12 @@ export class AwGrid implements AfterViewInit {
 
         if (this._colsDef && this._colsDef.length > 0)
             this.refresh();
+    }
+
+    columnResizing: boolean = false;
+
+    onColumnResizing(colDef) {
+        this.columnResizing = !!colDef;
     }
 
 	fit() {
