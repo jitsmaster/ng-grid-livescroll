@@ -1,9 +1,13 @@
 Installation:
+-----------------
 
 >npm install ng2-grid-livescroll -save
 
-Create data service for grid:
 
+Create data service for grid:
+-----------------------------
+
+```
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { GridDataServiceBase, GridDataResponse } from 'ng2-grid-livescroll/Grid';
 
@@ -20,9 +24,11 @@ export class ActualGridDataService extends GridDataServiceBase {
 		return pageData
 	}
 }
+```
 
 Create grid wrapper component to use the data service:
-
+------------------------------------------------------
+```
 import { Component, Input, Output, ViewChild, NgZone, EventEmitter } from '@angular/core';
 import { AwGrid, GridColumnDef, GridDataServiceBase, GridRow } from 'ng2-grid-livescroll/Grid';
 import { ActualGridDataService } from '../../services/Grid/ActualGridDataService';
@@ -56,3 +62,4 @@ export class ActualGridWrapper {
 		this.grid.refresh()
 	}
 }
+```
