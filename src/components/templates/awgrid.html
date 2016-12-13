@@ -8,6 +8,6 @@
 	<div class="tbody"
 		live-scroll [pages]="pages"
 		(onLiveScroll)="onLiveScroll($event)">
-		<div aw-grid-page class="tpage" *ngFor="let page of dataService.pages | async" [pageService]="page"></div>
+		<div aw-grid-page class="tpage" *ngFor="let page of pageServices | async" [pageService]="page"></div>
 	</div>
 </div>
