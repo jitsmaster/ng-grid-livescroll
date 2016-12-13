@@ -1,5 +1,8 @@
-import { Directive, Input, Output, EventEmitter, ElementRef, ViewChildren, QueryList } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import {
+	Directive, Input, Output, EventEmitter, ElementRef,
+	ViewChildren, QueryList
+} from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { Page } from '../components/Page';
 
 @Directive({
@@ -45,8 +48,20 @@ export class LiveScroll {
 
 	@Output() onLiveScroll: Observable<number[]>;
 	@Output() scrollLeft: Observable<number>;
+	private _paddingRightSubj = new BehaviorSubject<string>("0px");
+	paddingRight = this._paddingRightSubj.asObservable();
 
 	onScrollI: EventEmitter<UIEvent> = new EventEmitter<UIEvent>();
+
+	fit() {
+		var container = this.ele.nativeElement as HTMLElement;
+		var scrollbarWidth = !container.firstElementChild ?
+			0 :
+			container.offsetWidth - (container.firstElementChild as HTMLElement).offsetWidth;
+
+		//set the topbar padding right
+		this._paddingRightSubj.next(scrollbarWidth + "px");
+	}
 
 	handleScroll(evt: UIEvent) {
 		this.onScrollI.emit(evt);
