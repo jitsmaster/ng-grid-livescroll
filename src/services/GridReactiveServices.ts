@@ -81,6 +81,14 @@ export class ReactiveGridPageService {
 			this.clientDataFullfilled = true;
 		};
 	}
+
+	addRows(rows: GridRow[], addToBottom?:boolean) {
+		this.rowsState = addToBottom ?
+			this.rowsState.concat(rows) :
+			rows.concat(this.rowsState);
+		
+		this._rowsSubject.next(this.rowsState);
+	}
 }
 
 @Injectable()

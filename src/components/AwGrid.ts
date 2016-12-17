@@ -21,7 +21,7 @@ import { Page } from './Page';
     selector: 'aw-grid',
     templateUrl: './templates/awgrid.html',
     styleUrls: ['./templates/awgrid.css'],
-    providers: [ReactiveGridService, SortingService, SelectService, ColumnResizeService, DndService],
+    providers: [ReactiveGridService, SortingService, SelectService, ColumnResizeService],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

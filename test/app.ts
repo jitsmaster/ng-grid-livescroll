@@ -4,6 +4,7 @@ import { WidthUnitType } from '../src/models/enums';
 import { GridColumnDef, GridRow } from '../src/models/GridModels';
 import { GridDataServiceBase } from '../src/services/GridDataService';
 import { TestGridDataService } from './TestGridDataService';
+import { DndService } from '../src/services/DndService';
 
 @Component({
 	template: `
@@ -30,6 +31,7 @@ import { TestGridDataService } from './TestGridDataService';
 	`,
 	selector: "test-app",
 	providers: [
+		DndService,
 		{
 			provide: GridDataServiceBase,
 			useClass: TestGridDataService

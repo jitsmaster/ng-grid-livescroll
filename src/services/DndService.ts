@@ -10,6 +10,15 @@ export class DndService {
 	dragSourceType: string;
 	allowedDragSourceTypes: string[] = [];
 
+	set acceptTypes(val: string) {
+		this.allowedDragSourceTypes = val.split(',')
+			.filter(t => !!t);
+	}
+
+	allowDragOver(): boolean {
+		return !!this.allowedDragSourceTypes.find(item => item == this.dragSourceType);
+	}
+
 	@Output() onDragStart = new EventEmitter<DragSourceModel<any>>();
 	@Output() onDragEnd = new EventEmitter<DragSourceModel<any>>();
 
