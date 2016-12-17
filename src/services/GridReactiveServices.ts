@@ -11,6 +11,17 @@ export class ReactiveGridPageService {
 	protected _rowsSubject = new BehaviorSubject<GridRow[]>([]);
 	rows = this._rowsSubject.asObservable();
 
+	private _allowDrag = false;
+	set allowDrag(val: boolean) {
+		this._allowDrag = true;
+		if (this.rowsState)
+			this.rowsState.forEach(r => r.draggable = val);
+	}
+
+	get allowDrag(): boolean {
+		return this._allowDrag;
+	}
+
 	clientDataFullfilled = false;
 
 	constructor(
@@ -59,6 +70,7 @@ export class ReactiveGridPageService {
 							value: value
 						};
 					}),
+					draggable: this._allowDrag,
 					rawData: rowData
 				};
 			});
@@ -73,6 +85,12 @@ export class ReactiveGridPageService {
 
 @Injectable()
 export class ReactiveGridService {
+	private _allowDrag = false;
+	set allowDrag(val: boolean) {
+		this._allowDrag = true;
+		this.pageServices.forEach(page => page.allowDrag = val);
+	}
+
 	constructor(public dataService: GridDataServiceBase,
 		public selectService: SelectService) {
 	}
@@ -139,11 +157,14 @@ export class ReactiveGridService {
 					var lastPageSize = resp.totalCount % this.pageSize || this.pageSize;
 					var pages = Math.ceil(resp.totalCount / this.pageSize);
 
-					this.pageServices = Array.from({ length: pages }, (v, k) =>
-						new ReactiveGridPageService(
+					this.pageServices = Array.from({ length: pages }, (v, k) => {
+						var s = new ReactiveGridPageService(
 							this.columnsDef,
 							this.idField,
-							pages - 1 ? lastPageSize : this.pageSize));
+							pages - 1 ? lastPageSize : this.pageSize);
+						s.allowDrag = this._allowDrag;
+						return s;
+					});
 
 					this._pagesSubject.next(this.pageServices);
 

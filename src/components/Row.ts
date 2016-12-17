@@ -1,6 +1,8 @@
 import { Component, Input, ElementRef } from '@angular/core';
 import { GridRow } from '../models/GridModels';
 import { SelectService } from '../services/SelectService';
+import { DndService } from '../services/DndService';
+import { DragSourceModel, DropTargetModel } from '../models/DndModels';
 
 @Component({
 	templateUrl: "./templates/Row.html",
@@ -8,15 +10,19 @@ import { SelectService } from '../services/SelectService';
 	host: {
 		'class': 'tr',
 		'[class.selected]': 'model.selected',
-		'(click)': 'onRowClick(model, $event)'
+		'(click)': 'onRowClick(model, $event)',
+		'[attr.draggable]': "model.draggable",
+		'(dragstart)': "onDragStart($event)",
+		'(dragEnd)': "onDragEnd($event)"
 	}
 })
 export class Row {
 	@Input() model: GridRow;
 
-	constructor(public ele: ElementRef, public selectService: SelectService) {
+	constructor(public ele: ElementRef, public selectService: SelectService,
+		public dndService: DndService) {
 	}
-	
+
 	onRowClick(row: GridRow, evt: MouseEvent) {
 		if (evt.ctrlKey) {
 			this.selectService.additionalSelect(row);
@@ -27,5 +33,29 @@ export class Row {
 		else {
 			this.selectService.select(row);
 		}
+	}
+
+	onDragStart(evt: DragEvent) {
+		if (this.dndService.dragDisabled) {
+			evt.preventDefault();
+			return;
+		}
+
+		var dragSourceModel = new DragSourceModel(this.dndService.dragSourceType,
+			evt, this.model);
+
+		evt.dataTransfer.effectAllowed = "move";
+
+		this.dndService.onDragStart.emit(dragSourceModel);
+	}
+
+	onDragEnd(evt: DragEvent) {
+		if (this.dndService.dragDisabled)
+			return;
+
+		var dragSourceModel = new DragSourceModel(this.dndService.dragSourceType,
+			evt, this.model);
+
+		this.dndService.onDragEnd.emit(dragSourceModel);
 	}
 }

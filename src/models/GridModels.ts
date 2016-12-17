@@ -40,6 +40,7 @@ export class GridRow {
 	selected: boolean = false;
 	data: GridCell[];
 	rawData: any;
+	draggable: boolean = false;
 }
 
 export class SortState {

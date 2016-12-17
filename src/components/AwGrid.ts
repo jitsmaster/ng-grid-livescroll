@@ -11,6 +11,7 @@ import { ReactiveGridService, ReactiveGridPageService } from '../services/GridRe
 import { SortingService } from '../services/SortingService';
 import { SelectService } from '../services/SelectService';
 import { ColumnResizeService } from '../services/ColumnResizeService';
+import { DndService } from '../services/DndService';
 import { SelectionMode } from '../models/enums';
 import { GridColumnDef, GridRow } from '../models/GridModels';
 import { LiveScroll } from '../directives/liveScroll';
@@ -20,7 +21,7 @@ import { Page } from './Page';
     selector: 'aw-grid',
     templateUrl: './templates/awgrid.html',
     styleUrls: ['./templates/awgrid.css'],
-    providers: [ReactiveGridService, SortingService, SelectService, ColumnResizeService],
+    providers: [ReactiveGridService, SortingService, SelectService, ColumnResizeService, DndService],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -31,6 +32,8 @@ export class AwGrid implements AfterViewInit {
 	pageServices : Observable<ReactiveGridPageService[]>;
 
     @Input() idField: string;
+    @Input() allowDrag: boolean = false;
+    @Input() dragSourceType: string = "";
 
     private _colsDef: GridColumnDef[];
     @Input() set columnsDef(cols: GridColumnDef[]) {

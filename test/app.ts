@@ -7,17 +7,25 @@ import { TestGridDataService } from './TestGridDataService';
 
 @Component({
 	template: `
-	<button (click)="refresh()">Refresh</button>
-	<aw-grid [idField]="'1'" [columnsDef]="colsDef" [pageSize]="60"
-		[height]="'400px'"
-		[selected]="['0-41', '0-11']"
-		[selectionMode]="1"
-		(onSelect)="onSelect($event)">
-	</aw-grid>
-	<div style="height: 400px">
-		<div *ngFor="let log of logs | async">
-			{{log}}
-		</div>
+	<div style="float:left;width:45%;margin-right:5%">
+		<aw-grid [idField]="'1'" [columnsDef]="colsDef" [pageSize]="30"
+			[height]="'90%'"
+			[selected]="['0-41', '0-11']"
+			[selectionMode]="1"
+			[allowDrag]="true"
+			[dragSourceType]="'grid1'"
+			(onSelect)="onSelect('grid1', $event)">
+		</aw-grid>
+	</div>
+	<div style="float:left;width:45%">
+		<aw-grid [idField]="'1'" [columnsDef]="colsDef" [pageSize]="30"
+			[height]="'90%'"
+			[selected]="['0-41', '0-11']"
+			[selectionMode]="1"
+			[allowDrag]="true"
+			[dragSourceType]="'grid2'"
+			(onSelect)="onSelect('grid1', $event)">
+		</aw-grid>
 	</div>
 	`,
 	selector: "test-app",
@@ -47,9 +55,9 @@ export class TestApp {
 		return colDef;
 	});
 
-	onSelect(rows: GridRow[]) {
-		this._logs.push("Selected: " + rows.map(r => r.id).join(", "));
-		this.logs.emit(this._logs);
+	onSelect(gridName: string, rows: GridRow[]) {
+		// this._logs.push("Grid " + gridName + " Selected: " + rows.map(r => r.id).join(", "));
+		// this.logs.emit(this._logs);
 	}
 
 	@ViewChild(AwGrid) grid: AwGrid;
