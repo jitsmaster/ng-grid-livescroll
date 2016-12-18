@@ -36,6 +36,7 @@ export class GridCell {
 
 export class GridRow {
 	id: string;
+	index: number;
 	// selected: AsyncPipeService<boolean> = new AsyncPipeService<boolean>(false);
 	selected: boolean = false;
 	data: GridCell[];

@@ -28,7 +28,7 @@ export class Row {
 			this.selectService.additionalSelect(row);
 		}
 		else if (evt.shiftKey) {
-			//todo: figure out how to deal with the range select across pages
+			this.selectService.endSelect(row);
 		}
 		else {
 			this.selectService.select(row);
