@@ -13,6 +13,8 @@ export {GridDataServiceBase} from "./src/services/GridDataService";
 export {ReactiveGridPageService, ReactiveGridService} from "./src/services/GridReactiveServices";
 export {SelectService} from "./src/services/SelectService";
 export {SortingService} from "./src/services/SortingService";
+export {ColumnResizeService} from './src/services/ColumnResizeService';
+export {DndService} from "./src/services/DndService"
 
 
 

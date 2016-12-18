@@ -34,6 +34,8 @@ export class AwGrid implements AfterViewInit {
     @Input() idField: string;
     @Input() allowDrag: boolean = false;
     @Input() dragSourceType: string = "";
+    @Input() allowDrop: boolean = false;
+    @Input() acceptDropTypes: string = "";
 
     private _colsDef: GridColumnDef[];
     @Input() set columnsDef(cols: GridColumnDef[]) {
