@@ -1,7 +1,7 @@
 Installation:
 -----------------
 
->npm install ng2-grid-livescroll -save
+>npm install ng2-grid-livescroll --save
 
 
 Create data service for grid:
