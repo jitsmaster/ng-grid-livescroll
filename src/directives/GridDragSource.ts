@@ -37,6 +37,7 @@ export class GridDragSource {
 	constructor(public dataService: ReactiveGridService,
 		public selectService: SelectService,
 		public dndService: DndService) {
+			
 		dndService.onDragStart.subscribe((src: DragSourceModel<GridRow>) => {
 			if (this.selectService.selected.find(r => src.dataModel == r))
 				this.dndService.dragState = this.selectService.selected;

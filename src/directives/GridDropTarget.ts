@@ -23,7 +23,7 @@ export class GridDropTarget {
 		return this.dndService.allowedDragSourceTypes;
 	}
 
-	@Input('drag-disabled') set disabled(val: boolean) {
+	@Input('drop-disabled') set disabled(val: boolean) {
 		this._disabled = val;
 		this.dataService.allowDrag = !val;
 		this.onDisabledToggle.emit(val);
@@ -42,11 +42,15 @@ export class GridDropTarget {
 		public dndService: DndService) {
 	}
 
+	allowDragOver(): boolean {
+		return !!this.acceptTypes.find(item => item == this.dndService.dragSourceType);
+	}
+
 	onDragOver(evt: DragEvent) {
 		if (this.disabled)
 			return;
 
-		if (!this.dndService.allowDragOver())
+		if (!this.allowDragOver())
 			return;
 
 		// evt.dataTransfer.dropEffect = this.isCopy ? "copy" : "move";
@@ -80,7 +84,7 @@ export class GridDropTarget {
 		if (this.disabled)
 			return;
 
-		if (!this.dndService.allowDragOver())
+		if (!this.allowDragOver())
 			return;
 
 		this.render.setElementClass(this.ele.nativeElement, "dropTargetOn", false);
@@ -98,7 +102,7 @@ export class GridDropTarget {
 
 		this.onDragLeave(evt);
 
-		if (!this.dndService.allowDragOver())
+		if (!this.allowDragOver())
 			return;
 
 		evt.preventDefault();
@@ -128,5 +132,5 @@ export class GridDropTarget {
 			gravity,
 			evt,
 			this.dndService.dragState));
-	}	
+	}
 }

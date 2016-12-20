@@ -15,6 +15,8 @@ import { DndService } from '../src/services/DndService';
 			[selectionMode]="1"
 			[allowDrag]="true"
 			[dragSourceType]="'grid1'"
+			[acceptDropTypes]="'grid2'"
+			[allowDrop]="true"
 			(onSelect)="onSelect('grid1', $event)">
 		</aw-grid>
 	</div>
@@ -25,6 +27,8 @@ import { DndService } from '../src/services/DndService';
 			[selectionMode]="1"
 			[allowDrag]="true"
 			[dragSourceType]="'grid2'"
+			[acceptDropTypes]="'grid1'"
+			[allowDrop]="true"			
 			(onSelect)="onSelect('grid1', $event)">
 		</aw-grid>
 	</div>

@@ -27,6 +27,8 @@ export class ReactiveGridPageService {
 	constructor(
 		public columnsDef: GridColumnDef[],
 		public idField: string,
+		public pageSize: number,
+		public pageIndex: number,
 		public rowsCount: number) {
 
 		//create stubbing rows with no cells
@@ -56,14 +58,16 @@ export class ReactiveGridPageService {
 		//prevent setting page data repeatedly
 		if (!this.clientDataFullfilled || this._currentRowsData != rowsData) {
 			this.rowsState = rowsData.map((rowData, rowIndex) => {
+				var actualRowIndex = this.pageSize * this.pageIndex + rowIndex;
 				return {
 					id: rowData[this.idField],
+					index: actualRowIndex,
 					// selected: new AsyncPipeService<boolean>(false),
 					selected: false,
 					data: this.columnsDef.map((colDef, colIndex) => {
 						var value = colDef.formatter ? colDef.formatter(
 							rowData[colDef.field], colIndex,
-							rowData, rowIndex) : rowData[colDef.field] + "";
+							rowData, actualRowIndex) : rowData[colDef.field] + "";
 
 						return {
 							colDef: colDef,
@@ -72,7 +76,7 @@ export class ReactiveGridPageService {
 					}),
 					draggable: this._allowDrag,
 					rawData: rowData
-				};
+				} as GridRow;
 			});
 			this._rowsSubject.next(this.rowsState);
 
@@ -82,11 +86,11 @@ export class ReactiveGridPageService {
 		};
 	}
 
-	addRows(rows: GridRow[], addToBottom?:boolean) {
+	addRows(rows: GridRow[], addToBottom?: boolean) {
 		this.rowsState = addToBottom ?
 			this.rowsState.concat(rows) :
 			rows.concat(this.rowsState);
-		
+
 		this._rowsSubject.next(this.rowsState);
 	}
 }
@@ -99,8 +103,7 @@ export class ReactiveGridService {
 		this.pageServices.forEach(page => page.allowDrag = val);
 	}
 
-	constructor(public dataService: GridDataServiceBase,
-		public selectService: SelectService) {
+	constructor(public dataService: GridDataServiceBase) {
 	}
 
 	initialize(pageSize: number, columnsDef: GridColumnDef[], idField: string) {
@@ -127,7 +130,8 @@ export class ReactiveGridService {
 	sortField: string;
 	sortDsc: boolean;
 
-	selectedIds: string[];
+	selectedIndexes: number[] = [];
+	selectedIds: string[] = [];
 
 	refresh() {
 		this.isFirstRequest = true;
@@ -169,6 +173,8 @@ export class ReactiveGridService {
 						var s = new ReactiveGridPageService(
 							this.columnsDef,
 							this.idField,
+							this.pageSize,
+							this.currentPage,
 							pages - 1 ? lastPageSize : this.pageSize);
 						s.allowDrag = this._allowDrag;
 						return s;
@@ -188,13 +194,21 @@ export class ReactiveGridService {
 
 					if (resp.rows.length <= this.pageSize) {
 						this.pageServices[this.currentPage].setData(resp.rows);
-						if (this.selectedIds) {
+						var selectedRows: GridRow[] = [];
+
+						if (this.selectedIndexes && this.selectedIndexes.length > 0) {
+							var selectedRows = this.pageServices[this.currentPage]
+								.rowsState
+								.filter(r => this.selectedIndexes.find(idx => r.index == idx));
+						}
+						else if (this.selectedIds && this.selectedIds.length > 0) {
 							var selectedRows = this.pageServices[this.currentPage]
 								.rowsState
 								.filter(r => this.selectedIds.find(id => r.id == id));
-
-							this.selectService.selectMany(selectedRows);
 						}
+
+						if (selectedRows.length > 0)
+							selectedRows.forEach(r => r.selected = true);
 					}
 					else
 						throw new Error("Invalid grid data: Page data overflow.");

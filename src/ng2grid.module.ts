@@ -16,10 +16,10 @@ import { GridDropTarget } from './directives/GridDropTarget';
 
 @NgModule({
 	imports: [BrowserModule, HttpModule],
-	declarations: [AwGrid, Page, HeaderColumn, Row, Cell, LiveScroll, ColumnResizer, ResizerPlaceHolder,
-		GridDragSource, GridDropTarget],
-	exports: [AwGrid, Page, HeaderColumn, Row, Cell, LiveScroll, ColumnResizer, ResizerPlaceHolder,
-		GridDragSource, GridDropTarget],
+	declarations: [AwGrid, Page, HeaderColumn, Row, Cell, LiveScroll,
+		ColumnResizer, ResizerPlaceHolder, GridDragSource, GridDropTarget],
+	exports: [AwGrid, Page, HeaderColumn, Row, Cell, LiveScroll,
+		ColumnResizer, ResizerPlaceHolder, GridDragSource, GridDropTarget],
 	entryComponents: [],
 })
 export class Ng2GridModule { }

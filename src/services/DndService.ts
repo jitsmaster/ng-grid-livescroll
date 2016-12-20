@@ -15,10 +15,6 @@ export class DndService {
 			.filter(t => !!t);
 	}
 
-	allowDragOver(): boolean {
-		return !!this.allowedDragSourceTypes.find(item => item == this.dragSourceType);
-	}
-
 	@Output() onDragStart = new EventEmitter<DragSourceModel<any>>();
 	@Output() onDragEnd = new EventEmitter<DragSourceModel<any>>();
 
