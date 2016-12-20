@@ -32,6 +32,7 @@ exports.GridRow = GridModels_1.GridRow;
 exports.SelectItemsState = GridModels_1.SelectItemsState;
 exports.SelectRangeState = GridModels_1.SelectRangeState;
 exports.SortState = GridModels_1.SortState;
+exports.GridColumnResizeModel = GridModels_1.GridColumnResizeModel;
 var DndModels_1 = require("./src/models/DndModels");
 exports.BoxCoords = DndModels_1.BoxCoords;
 exports.Coords = DndModels_1.Coords;
