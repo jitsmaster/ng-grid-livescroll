@@ -158,7 +158,7 @@ export class ReactiveGridService {
 
 		this.dataService.requestData(this.currentPage, this.pageSize, sortField, sortDsc)
 			.subscribe(resp => {
-				if (!resp)
+				if (!resp || !resp.rows)
 					return;
 
 				if (this.isFirstRequest) {
