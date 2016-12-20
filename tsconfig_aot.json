@@ -34,6 +34,7 @@
     "test/main.ts",
     "src/models/enums.ts",
     "src/models/GridModels.ts",
+    "src/models/DndModels.ts",
     "src/services/GridDataService.ts",
     "src/services/GridReactiveServices.ts",
     "src/services/AsyncPipeService.ts",
@@ -42,7 +43,6 @@
     "src/services/ColumnResizeService.ts",
     "src/services/DndService.ts"
   ],
-
   "exclude": [
     "node_modules",
     "src/**/*.d.ts"
