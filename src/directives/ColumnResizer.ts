@@ -6,8 +6,8 @@ import { ColumnResizeService } from '../services/ColumnResizeService';
 @Directive({
 	selector: "[column-resizer]",
 	host: {
-		'(mousemove)': "onColumnHeadersMouseMove($event)",
-		'(mouseup)': "confirmColumnResizing($event)"
+		'(document:mousemove)': "onColumnHeadersMouseMove($event)",
+		'(document:mouseup)': "confirmColumnResizing($event)"
 	}
 })
 export class ColumnResizer {
