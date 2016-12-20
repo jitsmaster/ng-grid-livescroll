@@ -10,7 +10,7 @@
   "version": "1.0.26",
   "license": "MIT",
   "scripts": {
-    "pub": "npm version patch && gulp && npm publish",
+    "pub": "gulp && npm version patch && npm publish",
     "serve": "gulp build-debug && http-server -p 9292",
     "module_test": "gulp build-test && http-server -p 9292"
   },
