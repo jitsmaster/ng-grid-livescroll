@@ -20,10 +20,12 @@
     "src/components/Cell.ts",
     "src/components/HeaderColumn.ts",
     "src/components/Page.ts",
+    "src/components/Row.ts",
     "src/directives/liveScroll.ts",
     "src/directives/ColumnResizer.ts",
     "src/directives/ResizePlaceHolder.ts",
-    "src/components/Row.ts",
+    "src/directives/GridDropTarget.ts",
+    "src/directives/GridDragSource.ts",
     "test/main.ts",
     "src/models/enums.ts",
     "src/models/GridModels.ts",
@@ -32,6 +34,7 @@
     "src/services/AsyncPipeService.ts",
     "src/services/SelectService.ts",
     "src/services/SortingService.ts",
-    "src/services/ColumnResizeService.ts"
+    "src/services/ColumnResizeService.ts",
+    "src/services/DndService.ts"
   ]
 }
