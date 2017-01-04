@@ -14,7 +14,7 @@ export class TestGridDataService extends GridDataServiceBase {
 	requestData(page: number, pageSize: number,
 		sortField: string, sortDsc: boolean): Observable<GridDataResponse> {
 
-		var actualPage = sortDsc ? (Math.ceil(25 / pageSize) - 1) - page : page;
+		var actualPage = sortDsc ? (Math.ceil(500 / pageSize) - 1) - page : page;
 
 		//simulate a 5 col array
 		var data = Array.from({ length: pageSize },
@@ -51,7 +51,7 @@ export class TestGridDataService extends GridDataServiceBase {
 			idField: "1",
 			page: page,
 			rows: data,
-			totalCount: 25
+			totalCount: 500
 		});
 
 		return this.rows;

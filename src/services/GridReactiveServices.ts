@@ -98,6 +98,9 @@ export class ReactiveGridPageService {
 @Injectable()
 export class ReactiveGridService {
 	private _allowDrag = false;
+
+	requestedPages: number[] = [];
+
 	set allowDrag(val: boolean) {
 		this._allowDrag = true;
 		this.pageServices.forEach(page => page.allowDrag = val);
@@ -135,17 +138,26 @@ export class ReactiveGridService {
 
 	refresh() {
 		this.isFirstRequest = true;
+		this.requestedPages = [];
 		this.requestData("", false);
 	}
 
 	requestData(sortField: string, sortDsc: boolean, selectedIds?: string[]) {
 		if (sortField != this.sortField
-			|| sortDsc != this.sortDsc)
+			|| sortDsc != this.sortDsc) {
 			this.isFirstRequest = true;
+			this.requestedPages = [];
+		}
 
 		this.sortField = sortField;
 		this.sortDsc = sortDsc;
 		this.selectedIds = selectedIds;
+
+		//preventing requesting the same page twice
+		if (this.requestedPages.indexOf(this.currentPage) > -1)
+			return;
+
+		this.requestedPages.push(this.currentPage);
 
 		//if all rows already set, use it directly,
 		//this is the client side live scroll
