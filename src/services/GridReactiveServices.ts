@@ -187,7 +187,7 @@ export class ReactiveGridService {
 							this.idField,
 							this.pageSize,
 							this.currentPage,
-							pages - 1 ? lastPageSize : this.pageSize);
+							this.currentPage ==	pages - 1 ? lastPageSize : this.pageSize);
 						s.allowDrag = this._allowDrag;
 						return s;
 					});
