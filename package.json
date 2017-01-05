@@ -7,7 +7,7 @@
   "publisher": "Ingeniux Corporation",
   "description": "An Angular 2 Grid that is 100% based on rxjs Observables, and client/server side live-scroll",
   "homepage": "http://www.ingeniux.com",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "license": "MIT",
   "scripts": {
     "pub": "gulp && npm version patch && npm publish",
