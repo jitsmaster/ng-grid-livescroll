@@ -86,6 +86,8 @@ export class SelectService {
 					.forEach(r => r.selected = true);
 			}
 		}
+
+		this.onSelect.emit(this.selected);
 	}
 
 	/**
