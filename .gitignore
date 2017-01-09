@@ -15,3 +15,5 @@ test/**/*.js
 test/*.js
 test/**/*.map
 test/**/*.metadata.json
+*.js
+*.log
