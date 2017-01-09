@@ -7,7 +7,11 @@
   "publisher": "Ingeniux Corporation",
   "description": "An Angular 2 Grid that is 100% based on rxjs Observables, and client/server side live-scroll",
   "homepage": "https://github.com/jitsmaster/ng-grid-livescroll",
-  "version": "1.0.38",
+  "keywords": [
+    "grid", "data", "livescroll", "reactive", "rxjs", "observable", "angular", "angular 2",
+    ""
+  ],
+  "version": "1.0.40",
   "license": "MIT",
   "scripts": {
     "pub": "gulp && npm version patch && npm publish",
