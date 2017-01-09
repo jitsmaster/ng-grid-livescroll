@@ -16,7 +16,8 @@ export class LiveScroll {
 
 	constructor(private ele: ElementRef) {
 		this.onLiveScroll = this.onScrollI
-			.debounceTime(300)
+			.debounceTime(400)
+			.distinctUntilChanged()
 			.map(evt => {
 				//detect visible pages
 				var container = this.ele.nativeElement as HTMLElement;
