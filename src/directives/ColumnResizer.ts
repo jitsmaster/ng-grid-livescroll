@@ -26,7 +26,7 @@ export class ColumnResizer {
 	}
 
 	onColumnHeadersMouseMove(evt: MouseEvent) {
-		evt.stopPropagation;
+		evt.stopPropagation();
 		evt.preventDefault();
 
 		var mouseLeft = evt.pageX;
@@ -42,7 +42,7 @@ export class ColumnResizer {
 	}
 
 	confirmColumnResizing(evt: MouseEvent) {
-		evt.stopPropagation;
+		evt.stopPropagation();
 		evt.preventDefault();
 
 		this.columnToResize = null;

@@ -12,7 +12,7 @@ import { SortingService } from '../services/SortingService';
 		'[style.width]': 'colWidth',
 		'[style.minWidth]': 'colWidth',
 		'[style.maxWidth]': 'colWidth',
-		'(click)': 'sort()'
+		'(mouseup)': 'sort($event)'
 	}
 })
 export class HeaderColumn {
@@ -41,7 +41,7 @@ export class HeaderColumn {
 		return this.model.label;
 	}
 
-	sort() {
+	sort(evt: MouseEvent) {
 		if (!this.model.sortable) {
 			return;
 		}
