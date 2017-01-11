@@ -21,7 +21,7 @@ import { DndService } from '../src/services/DndService';
 		</aw-grid>
 	</div>
 	<div style="float:left;width:45%">
-		<aw-grid [idField]="'1'" [columnsDef]="colsDef" [pageSize]="30"
+		<aw-grid [idField]="'1'" [columnsDef]="colsDef2" [pageSize]="30"
 			[height]="'90%'"
 			[selected]="['0-41', '0-11']"
 			[selectionMode]="1"
@@ -60,6 +60,21 @@ export class TestApp {
 
 		return colDef;
 	});
+	colsDef2: GridColumnDef[] = Array.from({ length: 5 }, (v, k) => {
+		var colDef = {
+			field: k + "",
+			label: "Column " + k,
+			sortable: true,
+			width: 200,
+			minWidth: 100,
+			widthUnit: WidthUnitType.px,
+			formatter: (cellData, cellIndex, rowData, rowIndex) => {
+				return cellData + "<span>Row:" + rowIndex + " - Cell: " + cellIndex + "</span>"
+			}
+		} as GridColumnDef;
+
+		return colDef;
+	});	
 
 	onSelect(gridName: string, rows: GridRow[]) {
 		// this._logs.push("Grid " + gridName + " Selected: " + rows.map(r => r.id).join(", "));

@@ -29,7 +29,7 @@ export class AwGrid implements AfterViewInit {
     private _colsSubj = new BehaviorSubject<GridColumnDef[]>([]);
     columns = this._colsSubj.asObservable();
 
-	pageServices : Observable<ReactiveGridPageService[]>;
+    pageServices: Observable<ReactiveGridPageService[]>;
 
     @Input() idField: string;
     @Input() allowDrag: boolean = false;
@@ -65,11 +65,11 @@ export class AwGrid implements AfterViewInit {
             this.onSelect.emit(evt);
         });
 
-		this.pageServices = this.dataService.pages
-			.map(pages => {
-				setTimeout(() => this.fit(), 100);
-				return pages;
-			});
+        this.pageServices = this.dataService.pages
+            .map(pages => {
+                setTimeout(() => this.fit(), 100);
+                return pages;
+            });
     }
 
     ngAfterViewInit() {
@@ -89,13 +89,13 @@ export class AwGrid implements AfterViewInit {
         this.columnResizing = !!colDef;
     }
 
-	fit() {
-		this.liveScroll.fit();
-	}
+    fit() {
+        this.liveScroll.fit();
+    }
 
     refresh() {
         this.dataService.initialize(this.pageSize, this._colsDef, this.idField);
-        this.dataService.currentPage = 0;
+        this.dataService.currentPages = [0];
         this.liveScroll.reset();
         this.dataService.refresh();
     }
@@ -114,11 +114,8 @@ export class AwGrid implements AfterViewInit {
     }
 
     onLiveScroll(pagesToLoad: number[]) {
-        pagesToLoad.forEach(
-            page => {
-                this.dataService.currentPage = page;
-                this.dataService
-                    .requestData(this.dataService.sortField, this.dataService.sortDsc);
-            });
+        this.dataService.currentPages = pagesToLoad;
+        this.dataService
+            .requestData(this.dataService.sortField, this.dataService.sortDsc);
     }
 }

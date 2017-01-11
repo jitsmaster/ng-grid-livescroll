@@ -22,26 +22,26 @@
     "angular 2",
     ""
   ],
-  "version": "1.0.41",
+  "version": "1.0.42",
   "license": "MIT",
   "scripts": {
-    "pub": "gulp && npm version patch && npm publish",
+    "pub": "gulp && npm publish",
     "serve": "gulp build-debug && http-server -p 9292",
     "module_test": "gulp build-test && http-server -p 9292"
   },
   "dependencies": {
-    "@angular/common": "2.2.4",
-    "@angular/compiler": "2.2.4",
-    "@angular/compiler-cli": "2.2.4",
-    "@angular/core": "2.2.4",
-    "@angular/http": "2.2.4",
-    "@angular/platform-browser": "2.2.4",
-    "@angular/platform-browser-dynamic": "2.2.4",
+    "@angular/common": "2.4.1",
+    "@angular/compiler": "2.4.1",
+    "@angular/compiler-cli": "2.4.1",
+    "@angular/core": "2.4.1",
+    "@angular/http": "2.4.1",
+    "@angular/platform-browser": "2.4.1",
+    "@angular/platform-browser-dynamic": "2.4.1",
     "gulp-less": "^3.3.0",
     "reflect-metadata": "0.1.8",
-    "rxjs": "5.0.0-beta.12",
+    "rxjs": "5.0.1",
     "systemjs": "^0.19.40",
-    "zone.js": "^0.6.26"
+    "zone.js": "^0.7.2"
   },
   "devDependencies": {
     "http-server": "^0.9.0",
