@@ -19,10 +19,10 @@
     "rxjs",
     "observable",
     "angular",
-    "angular 2",
+    "angular v4",
     ""
   ],
-  "version": "1.0.44",
+  "version": "1.0.45",
   "license": "MIT",
   "scripts": {
     "pub": "gulp && npm publish",
