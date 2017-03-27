@@ -22,7 +22,7 @@
     "angular 2",
     ""
   ],
-  "version": "1.0.42",
+  "version": "1.0.44",
   "license": "MIT",
   "scripts": {
     "pub": "gulp && npm publish",
