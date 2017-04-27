@@ -144,6 +144,35 @@ export class ReactiveGridService {
 		this.requestData("", false);
 	}
 
+	addRows(rows: GridRow[]) {
+		if (!rows || !rows.length)
+			return;
+
+		//add to the end of listing, which means the last page
+		if (!this.pageServices.length) {
+			var pageService = new ReactiveGridPageService(
+				this.columnsDef,
+				this.idField,
+				this.pageSize,
+				0,
+				rows.length);
+			pageService.allowDrag = this._allowDrag;
+			this.pageServices = [pageService];
+			this._pagesSubject.next(this.pageServices);
+		}
+
+		var lastPage = this.pageServices[this.pageServices.length - 1];
+		if (!lastPage.rowsState) {
+			var obs = this.dataService.requestData(this.pageServices.length - 1, this.pageSize, this.sortField, this.sortDsc);
+			var t = obs.subscribe(resp => {
+				lastPage.setData(resp.rows);
+				lastPage.addRows(rows);
+			});
+		}
+		else
+			lastPage.addRows(rows);
+	}
+
 	requestData(sortField: string, sortDsc: boolean, selectedIds?: string[]) {
 		if (sortField != this.sortField
 			|| sortDsc != this.sortDsc) {
