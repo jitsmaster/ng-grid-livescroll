@@ -26,6 +26,9 @@ export class ColumnResizer {
 	}
 
 	onColumnHeadersMouseMove(evt: MouseEvent) {
+		if (!this.columnToResize)
+			return;
+
 		evt.stopPropagation();
 		evt.preventDefault();
 
@@ -42,6 +45,9 @@ export class ColumnResizer {
 	}
 
 	confirmColumnResizing(evt: MouseEvent) {
+		if (!this.columnToResize)
+			return;
+					
 		evt.stopPropagation();
 		evt.preventDefault();
 

@@ -144,7 +144,7 @@ export class ReactiveGridService {
 		this.requestData("", false);
 	}
 
-	addRows(rows: GridRow[]) {
+	addRows(rows: GridRow[], toEnd?: boolean) {
 		if (!rows || !rows.length)
 			return;
 
@@ -166,11 +166,11 @@ export class ReactiveGridService {
 			var obs = this.dataService.requestData(this.pageServices.length - 1, this.pageSize, this.sortField, this.sortDsc);
 			var t = obs.subscribe(resp => {
 				lastPage.setData(resp.rows);
-				lastPage.addRows(rows);
+				lastPage.addRows(rows, toEnd);
 			});
 		}
 		else
-			lastPage.addRows(rows);
+			lastPage.addRows(rows, toEnd);
 	}
 
 	requestData(sortField: string, sortDsc: boolean, selectedIds?: string[]) {
