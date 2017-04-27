@@ -19,10 +19,10 @@
     "rxjs",
     "observable",
     "angular",
-    "angular 2",
+    "angular v4",
     ""
   ],
-  "version": "1.0.43",
+  "version": "1.0.45",
   "license": "MIT",
   "scripts": {
     "pub": "gulp && npm publish",
@@ -30,18 +30,18 @@
     "module_test": "gulp build-test && http-server -p 9292"
   },
   "dependencies": {
-    "@angular/common": "^2.4.3",
-    "@angular/compiler": "^2.4.3",
-    "@angular/compiler-cli": "^2.4.3",
-    "@angular/core": "^2.4.3",
-    "@angular/http": "^2.4.3",
-    "@angular/platform-browser": "^2.4.3",
-    "@angular/platform-browser-dynamic": "^2.4.3",
+    "@angular/common": "4.0.0",
+    "@angular/compiler": "4.0.0",
+    "@angular/compiler-cli": "4.0.0",
+    "@angular/core": "4.0.0",
+    "@angular/http": "4.0.0",
+    "@angular/platform-browser": "4.0.0",
+    "@angular/platform-browser-dynamic": "4.0.0",
     "gulp-less": "^3.3.0",
     "reflect-metadata": "0.1.8",
     "rxjs": "5.0.1",
     "systemjs": "^0.19.40",
-    "zone.js": "^0.7.2"
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
     "http-server": "^0.9.0",
@@ -63,7 +63,7 @@
     "tsconfig-glob": "~0.4.3",
     "tsd": "~0.6.5",
     "tslint": "~3.15.1",
-    "typescript": "^2.0.8",
+    "typescript": "^2.1.5",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
