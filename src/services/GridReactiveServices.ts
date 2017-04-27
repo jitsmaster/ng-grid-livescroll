@@ -77,7 +77,9 @@ export class ReactiveGridPageService {
 					draggable: this._allowDrag,
 					rawData: rowData
 				} as GridRow;
-			});
+			})
+			.filter(r => this._removedIds.indexOf(r.id) < 0);
+			
 			this._rowsSubject.next(this.rowsState);
 
 			this._currentRowsData = rowsData
@@ -90,6 +92,22 @@ export class ReactiveGridPageService {
 		this.rowsState = addToBottom ?
 			this.rowsState.concat(rows) :
 			rows.concat(this.rowsState);
+
+		this._rowsSubject.next(this.rowsState);
+	}
+
+	private _removedIds: string[] = [];
+
+	removeRows(rows: GridRow[]) {
+		if (!this.rowsState)
+			return;
+
+		this._removedIds = this._removedIds.concat(
+			rows.map(r => r.id));
+		this.rowsState = this.rowsState
+			.filter(r => {
+				return !rows.find(rr => rr === r);
+			});
 
 		this._rowsSubject.next(this.rowsState);
 	}
@@ -171,6 +189,11 @@ export class ReactiveGridService {
 		}
 		else
 			lastPage.addRows(rows, toEnd);
+	}
+
+	removeRows(rows: GridRow[]) {
+		var visitedPages = this.pageServices.filter(p => !!p.rowsState)
+			.forEach(p => p.removeRows(rows));
 	}
 
 	requestData(sortField: string, sortDsc: boolean, selectedIds?: string[]) {
