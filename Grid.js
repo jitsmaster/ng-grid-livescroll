@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var ng2grid_module_1 = require("./src/ng2grid.module");
 exports.Ng2GridModule = ng2grid_module_1.Ng2GridModule;
 var AwGrid_1 = require("./src/components/AwGrid");
@@ -50,7 +51,7 @@ var SelectService_1 = require("./src/services/SelectService");
 exports.SelectService = SelectService_1.SelectService;
 var SortingService_1 = require("./src/services/SortingService");
 exports.SortingService = SortingService_1.SortingService;
-var DndService_1 = require('./src/services/DndService');
+var DndService_1 = require("./src/services/DndService");
 exports.DndService = DndService_1.DndService;
-var ColumnResizeService_1 = require('./src/services/ColumnResizeService');
+var ColumnResizeService_1 = require("./src/services/ColumnResizeService");
 exports.ColumnResizeService = ColumnResizeService_1.ColumnResizeService;

@@ -22,7 +22,7 @@
     "angular v4",
     ""
   ],
-  "version": "1.0.49",
+  "version": "1.0.50",
   "license": "MIT",
   "scripts": {
     "pub": "gulp && npm publish",
@@ -30,13 +30,13 @@
     "module_test": "gulp build-test && http-server -p 9292"
   },
   "dependencies": {
-    "@angular/common": "4.0.0",
-    "@angular/compiler": "4.0.0",
-    "@angular/compiler-cli": "4.0.0",
-    "@angular/core": "4.0.0",
-    "@angular/http": "4.0.0",
-    "@angular/platform-browser": "4.0.0",
-    "@angular/platform-browser-dynamic": "4.0.0",
+    "@angular/common": "^4.1.3",
+    "@angular/compiler": "^4.1.3",
+    "@angular/compiler-cli": "^4.1.3",
+    "@angular/core": "^4.1.3",
+    "@angular/http": "^4.1.3",
+    "@angular/platform-browser": "^4.1.3",
+    "@angular/platform-browser-dynamic": "^4.1.3",
     "gulp-less": "^3.3.0",
     "reflect-metadata": "0.1.8",
     "rxjs": "5.0.1",
