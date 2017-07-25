@@ -10,7 +10,9 @@
     "removeComments": true,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true,
+    "noStrictGenericChecks": false
   },
   "angularCompilerOptions": {
     "genDir": "aot",

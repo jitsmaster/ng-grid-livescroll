@@ -19,6 +19,9 @@ export class LiveScroll {
 			.debounceTime(400)
 			.distinctUntilChanged()
 			.map(evt => {
+				if (!evt)
+					return [];
+
 				//detect visible pages
 				var container = this.ele.nativeElement as HTMLElement;
 				var scrollTop = container.scrollTop;
@@ -42,6 +45,9 @@ export class LiveScroll {
 
 		this.scrollLeft = this.onScrollI
 			.map(evt => {
+				if (!evt)
+					return 0;
+				
 				var container = this.ele.nativeElement as HTMLElement;
 				return container.scrollLeft;
 			});
@@ -52,7 +58,8 @@ export class LiveScroll {
 	private _paddingRightSubj = new BehaviorSubject<string>("0px");
 	paddingRight = this._paddingRightSubj.asObservable();
 
-	onScrollI: EventEmitter<UIEvent> = new EventEmitter<UIEvent>();
+	private _onScrollI = new BehaviorSubject<UIEvent>(null);
+	onScrollI: Observable<UIEvent> = this._onScrollI.asObservable();
 
 	fit() {
 		var container = this.ele.nativeElement as HTMLElement;
@@ -65,7 +72,7 @@ export class LiveScroll {
 	}
 
 	handleScroll(evt: UIEvent) {
-		this.onScrollI.emit(evt);
+		this._onScrollI.next(evt);
 		this.fit();
 	}
 

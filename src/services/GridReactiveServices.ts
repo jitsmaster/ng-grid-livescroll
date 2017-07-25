@@ -78,8 +78,8 @@ export class ReactiveGridPageService {
 					rawData: rowData
 				} as GridRow;
 			})
-			.filter(r => this._removedIds.indexOf(r.id) < 0);
-			
+				.filter(r => this._removedIds.indexOf(r.id) < 0);
+
 			this._rowsSubject.next(this.rowsState);
 
 			this._currentRowsData = rowsData
@@ -118,6 +118,8 @@ export class ReactiveGridService {
 	private _allowDrag = false;
 
 	requestedPages: number[] = [];
+
+	public selectService: SelectService;
 
 	set allowDrag(val: boolean) {
 		this._allowDrag = true;
@@ -205,7 +207,8 @@ export class ReactiveGridService {
 
 		this.sortField = sortField;
 		this.sortDsc = sortDsc;
-		this.selectedIds = selectedIds;
+		if (selectedIds)
+			this.selectedIds = selectedIds;
 
 		//preventing requesting the same page twice
 		var actualPagesToRequest = this.currentPages
@@ -287,7 +290,7 @@ export class ReactiveGridService {
 							}
 
 							if (selectedRows.length > 0)
-								selectedRows.forEach(r => r.selected = true);
+								selectedRows.forEach(r => this.selectService.markAsSelected(r));
 						}
 						else
 							throw new Error("Invalid grid data: Page data overflow.");

@@ -10,7 +10,9 @@
     "removeComments": false,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true,
+    "noStrictGenericChecks": false
   },
   "files": [
     "node_modules/typescript/lib/lib.es6.d.ts",

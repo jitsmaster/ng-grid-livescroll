@@ -41,7 +41,7 @@ export class AwGrid implements AfterViewInit {
     @Input() set columnsDef(cols: GridColumnDef[]) {
         this._colsDef = cols;
         this._colsSubj.next(cols);
-        this.refresh();
+        // this.refresh();
     }
     @Input() pageSize = 100;
     @Input() height: string;
@@ -101,8 +101,13 @@ export class AwGrid implements AfterViewInit {
     }
 
     select(ids?: string[]) {
-        if (ids)
+        if (ids) {
             this.selected = ids;
+            this.dataService.selectedIds = ids;
+        }
+
+        if (!this.dataService.pageServices.length)
+            return;
 
         //use reducer to realize selectMany
         var selectedRows = this.dataService.pageServices
@@ -116,6 +121,6 @@ export class AwGrid implements AfterViewInit {
     onLiveScroll(pagesToLoad: number[]) {
         this.dataService.currentPages = pagesToLoad;
         this.dataService
-            .requestData(this.dataService.sortField, this.dataService.sortDsc);
+            .requestData(this.dataService.sortField, this.dataService.sortDsc, this.selected);
     }
 }

@@ -1,3 +1,6 @@
 {
-	"typescript.check.workspaceVersion": false
+	"typescript.check.workspaceVersion": false,
+	"files.exclude": {
+		"**/*.js": false
+	}	
 }

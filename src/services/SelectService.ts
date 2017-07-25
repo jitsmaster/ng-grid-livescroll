@@ -14,6 +14,7 @@ export class SelectService {
 	@Output() onSelect: EventEmitter<GridRow[]> = new EventEmitter<GridRow[]>();
 
 	constructor(private dataService: ReactiveGridService) {
+		this.dataService.selectService = this;
 	}
 
 	clear() {
@@ -36,14 +37,25 @@ export class SelectService {
 	}
 
 	additionalSelect(row: GridRow) {
+		this.markAsSelected(row);
+		this.onSelect.emit(this.selected);
+	}
+
+	markAsSelected(row: GridRow) {
 		if (this.selected.length > 0 && this.selectionMode == SelectionMode.single)
 			return;
 
-		if (!this.selected.find(r => r == row))
+		var pos = this.selected.indexOf(row);
+		if (pos < 0) {
 			this.selected.push(row);
+			row.selected = true;
+		}
+		else {
+			row.selected = false;
+			this.selected.splice(pos, 1);
+		}
 		// row.selected.triggerUpdate(true);
-		row.selected = true;
-		this.onSelect.emit(this.selected);
+		
 	}
 
 	selectMany(rows: GridRow[]) {
