@@ -2,7 +2,7 @@ import { Injectable, Input, Output, EventEmitter } from '@angular/core';
 import { AsyncPipeService } from './AsyncPipeService';
 import { ReactiveGridService, ReactiveGridPageService } from './GridReactiveServices';
 import { SelectionMode } from '../models/enums';
-import { GridRow, SelectItemsState, SelectRangeState } from '../models/GridModels';
+import { GridRow, SelectItemsState, SelectRangeState, GridRowEventModel } from '../models/GridModels';
 
 @Injectable()
 export class SelectService {
@@ -12,6 +12,8 @@ export class SelectService {
 
 	@Input() selectionMode: SelectionMode = SelectionMode.multiple;
 	@Output() onSelect: EventEmitter<GridRow[]> = new EventEmitter<GridRow[]>();
+	@Output() onRowCreate: EventEmitter<GridRowEventModel> = new EventEmitter<GridRowEventModel>();
+	@Output() onRowDestroy: EventEmitter<GridRowEventModel> = new EventEmitter<GridRowEventModel>();
 
 	constructor(private dataService: ReactiveGridService) {
 	}

@@ -1,5 +1,6 @@
 import { WidthUnitType } from './enums';
 import { AsyncPipeService } from '../Services/AsyncPipeService';
+import { ElementRef } from "@angular/core";
 
 export class GridColumnDef {
 	label: string;
@@ -42,6 +43,11 @@ export class GridRow {
 	data: GridCell[];
 	rawData: any;
 	draggable: boolean = false;
+}
+
+export class GridRowEventModel {
+	model: GridRow;
+	node: ElementRef
 }
 
 export class SortState {
