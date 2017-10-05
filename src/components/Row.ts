@@ -23,6 +23,20 @@ export class Row {
 		public dndService: DndService) {
 	}
 
+	ngAfterViewInit() {
+		this.selectService.onRowCreate.emit({
+			model: this.model,
+			node: this.ele
+		});
+	}
+
+	ngOnDestroy() {
+		this.selectService.onRowDestroy.emit({
+			model: this.model,
+			node: this.ele
+		});
+	}
+
 	onRowClick(row: GridRow, evt: MouseEvent) {
 		if (evt.ctrlKey) {
 			this.selectService.additionalSelect(row);

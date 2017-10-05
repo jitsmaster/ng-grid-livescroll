@@ -13,7 +13,7 @@ import { SelectService } from '../services/SelectService';
 import { ColumnResizeService } from '../services/ColumnResizeService';
 import { DndService } from '../services/DndService';
 import { SelectionMode } from '../models/enums';
-import { GridColumnDef, GridRow } from '../models/GridModels';
+import { GridColumnDef, GridRow, GridRowEventModel } from '../models/GridModels';
 import { LiveScroll } from '../directives/liveScroll';
 import { Page } from './Page';
 
@@ -21,7 +21,6 @@ import { Page } from './Page';
     selector: 'aw-grid',
     templateUrl: './templates/awgrid.html',
     styleUrls: ['./templates/awgrid.css'],
-    providers: [ReactiveGridService, SortingService, SelectService, ColumnResizeService],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -32,9 +31,23 @@ export class AwGrid implements AfterViewInit {
     pageServices: Observable<ReactiveGridPageService[]>;
 
     @Input() idField: string;
-    @Input() allowDrag: boolean = false;
+    @Input() set allowDrag(val: boolean) {
+        this.dndService.dragDisabled = !val;
+    }
+
+    get allowDrag(): boolean {
+        return !this.dndService.dragDisabled;
+    }
+
     @Input() dragSourceType: string = "";
-    @Input() allowDrop: boolean = false;
+    @Input() set allowDrop(val: boolean) {
+        this.dndService.dropDisabled = !val;
+    }
+
+    get allowDrop(): boolean {
+        return !this.dndService.dropDisabled;
+    }
+
     @Input() acceptDropTypes: string = "";
 
     private _colsDef: GridColumnDef[];
@@ -53,6 +66,8 @@ export class AwGrid implements AfterViewInit {
     @ViewChildren(Page) _pages: QueryList<Page>;
 
     @Output() onSelect: EventEmitter<GridRow[]> = new EventEmitter<GridRow[]>();
+    @Output() onRowCreate: EventEmitter<GridRowEventModel> = new EventEmitter<GridRowEventModel>();
+    @Output() onRowDestroy: EventEmitter<GridRowEventModel> = new EventEmitter<GridRowEventModel>();
 
     get pages(): Page[] {
         if (!this._pages)
@@ -60,10 +75,17 @@ export class AwGrid implements AfterViewInit {
         return this._pages.map(p => p);
     }
 
-    constructor(public dataService: ReactiveGridService, public selectService: SelectService) {
+    constructor(public dataService: ReactiveGridService, public selectService: SelectService,
+        public dndService: DndService) {
         this.selectService.onSelect.subscribe(evt => {
             this.onSelect.emit(evt);
         });
+        this.selectService.onRowCreate.subscribe(evt => {
+            this.onRowCreate.emit(evt);
+        });
+        this.selectService.onRowDestroy.subscribe(evt => {
+            this.onRowDestroy.emit(evt);
+        })
 
         this.pageServices = this.dataService.pages
             .map(pages => {

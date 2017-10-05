@@ -12,7 +12,8 @@ export { ResizerPlaceHolder } from "./src/directives/ResizePlaceHolder";
 export { WidthUnitType } from "./src/models/enums";
 export {
 	GridCell, GridColumnDef, GridDataRequest, GridDataResponse,
-	GridRow, SelectItemsState, SelectRangeState, SortState, GridColumnResizeModel
+	GridRow, SelectItemsState, SelectRangeState, SortState, GridColumnResizeModel,
+	GridRowEventModel
 } from "./src/models/GridModels";
 export { BoxCoords, Coords, DragSourceModel, DropTargetModel, Gravity } from "./src/models/DndModels";
 export { AsyncPipeService } from "./src/services/AsyncPipeService";

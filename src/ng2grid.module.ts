@@ -14,12 +14,18 @@ import { ResizerPlaceHolder } from './directives/ResizePlaceHolder';
 import { GridDragSource } from './directives/GridDragSource';
 import { GridDropTarget } from './directives/GridDropTarget';
 
+import { ReactiveGridService } from "./services/GridReactiveServices";
+import { SortingService } from "./services/SortingService";
+import { SelectService } from "./services/SelectService";
+import { ColumnResizeService } from "./services/ColumnResizeService";
+
 @NgModule({
 	imports: [BrowserModule, HttpModule],
 	declarations: [AwGrid, Page, HeaderColumn, Row, Cell, LiveScroll,
 		ColumnResizer, ResizerPlaceHolder, GridDragSource, GridDropTarget],
 	exports: [AwGrid, Page, HeaderColumn, Row, Cell, LiveScroll,
 		ColumnResizer, ResizerPlaceHolder, GridDragSource, GridDropTarget],
+	providers: [ReactiveGridService, SortingService, SelectService, ColumnResizeService],
 	entryComponents: [],
 })
 export class Ng2GridModule { }
