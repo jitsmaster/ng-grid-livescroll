@@ -11,6 +11,7 @@ import { DragSourceModel, DropTargetModel } from '../models/DndModels';
 		'class': 'tr',
 		'[class.selected]': 'model.selected',
 		'(click)': 'onRowClick(model, $event)',
+		'(dblclick)': 'onDoubleClick(model, $event)',
 		'[attr.draggable]': "model.draggable",
 		'(dragstart)': "onDragStart($event)",
 		'(dragEnd)': "onDragEnd($event)"
@@ -47,6 +48,11 @@ export class Row {
 		else {
 			this.selectService.select(row);
 		}
+	}
+
+	onDoubleCLick(row: GridRow, evt: MouseEvent) {
+		if (row)
+			this.selectService.onDoubleClick.emit(row);
 	}
 
 	onDragStart(evt: DragEvent) {

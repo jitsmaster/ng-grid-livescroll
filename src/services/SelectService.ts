@@ -12,6 +12,7 @@ export class SelectService {
 
 	@Input() selectionMode: SelectionMode = SelectionMode.multiple;
 	@Output() onSelect: EventEmitter<GridRow[]> = new EventEmitter<GridRow[]>();
+	@Output() onDoubleClick: EventEmitter<GridRow> = new EventEmitter<GridRow>();
 	@Output() onRowCreate: EventEmitter<GridRowEventModel> = new EventEmitter<GridRowEventModel>();
 	@Output() onRowDestroy: EventEmitter<GridRowEventModel> = new EventEmitter<GridRowEventModel>();
 
@@ -28,6 +29,10 @@ export class SelectService {
 		}
 
 		this.selected = [];
+	}
+
+	doubleClick(row: GridRow) {
+		this.onDoubleClick.emit(row);
 	}
 
 	select(row: GridRow) {

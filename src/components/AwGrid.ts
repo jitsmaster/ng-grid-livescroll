@@ -66,6 +66,7 @@ export class AwGrid implements AfterViewInit {
     @ViewChildren(Page) _pages: QueryList<Page>;
 
     @Output() onSelect: EventEmitter<GridRow[]> = new EventEmitter<GridRow[]>();
+    @Output() onDoubleClick: EventEmitter<GridRow> = new EventEmitter<GridRow>();
     @Output() onRowCreate: EventEmitter<GridRowEventModel> = new EventEmitter<GridRowEventModel>();
     @Output() onRowDestroy: EventEmitter<GridRowEventModel> = new EventEmitter<GridRowEventModel>();
 
@@ -86,6 +87,7 @@ export class AwGrid implements AfterViewInit {
         this.selectService.onRowDestroy.subscribe(evt => {
             this.onRowDestroy.emit(evt);
         })
+        this.selectService.onDoubleClick.subscribe(evt => this.onDoubleClick.emit(evt));
 
         this.pageServices = this.dataService.pages
             .map(pages => {
