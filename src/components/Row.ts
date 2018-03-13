@@ -65,6 +65,8 @@ export class Row {
 			evt, this.model);
 
 		evt.dataTransfer.effectAllowed = "move";
+		//bypass firefox not able to drag issue
+		evt.dataTransfer.setData("Text", this.model.id);
 
 		this.dndService.onDragStart.emit(dragSourceModel);
 	}

@@ -16,8 +16,8 @@
   },
   "angularCompilerOptions": {
     "genDir": "aot",
-    "skipMetadataEmit": false,
-    "debug": false
+    "skipMetadataEmit": true,
+    "debug": true
   },
   "files": [
     "node_modules/typescript/lib/lib.es6.d.ts",
