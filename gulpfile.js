@@ -153,7 +153,7 @@ gulp.task('tsconfig-glob', function () {
 	});
 });
 
-gulp.task('build', ['tslint', 'compileDef', 'concat-debug:libs'], function (cb) {
+gulp.task('build', ['tslint', 'compile', 'concat-debug:libs'], function (cb) {
 	//var b = browserify("./ngscripts/main.js", {
 	//	debug: true
 	//})

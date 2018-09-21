@@ -13,7 +13,7 @@ import { SelectService } from '../services/SelectService';
 import { ColumnResizeService } from '../services/ColumnResizeService';
 import { DndService } from '../services/DndService';
 import { SelectionMode } from '../models/enums';
-import { GridColumnDef, GridRow, GridRowEventModel } from '../models/GridModels';
+import { GridColumnDef, GridRow, GridRowEventModel, GridClickEventModel } from '../models/GridModels';
 import { LiveScroll } from '../directives/liveScroll';
 import { Page } from './Page';
 
@@ -29,6 +29,8 @@ export class AwGrid implements AfterViewInit {
     columns = this._colsSubj.asObservable();
 
     pageServices: Observable<ReactiveGridPageService[]>;
+
+    private _teardowns = [];
 
     @Input() idField: string;
     @Input() set allowDrag(val: boolean) {
@@ -69,6 +71,7 @@ export class AwGrid implements AfterViewInit {
     @Output() onDoubleClick: EventEmitter<GridRow> = new EventEmitter<GridRow>();
     @Output() onRowCreate: EventEmitter<GridRowEventModel> = new EventEmitter<GridRowEventModel>();
     @Output() onRowDestroy: EventEmitter<GridRowEventModel> = new EventEmitter<GridRowEventModel>();
+    @Output() onClick: EventEmitter<GridClickEventModel> = new EventEmitter<GridClickEventModel>();
 
     get pages(): Page[] {
         if (!this._pages)
@@ -78,16 +81,24 @@ export class AwGrid implements AfterViewInit {
 
     constructor(public dataService: ReactiveGridService, public selectService: SelectService,
         public dndService: DndService) {
-        this.selectService.onSelect.subscribe(evt => {
-            this.onSelect.emit(evt);
-        });
-        this.selectService.onRowCreate.subscribe(evt => {
-            this.onRowCreate.emit(evt);
-        });
-        this.selectService.onRowDestroy.subscribe(evt => {
-            this.onRowDestroy.emit(evt);
-        })
-        this.selectService.onDoubleClick.subscribe(evt => this.onDoubleClick.emit(evt));
+
+        this._teardowns = [
+            this.selectService.onSelect.subscribe(evt => {
+                this.onSelect.emit(evt);
+            }),
+            this.selectService.onRowCreate.subscribe(evt => {
+                this.onRowCreate.emit(evt);
+            }),
+            this.selectService.onRowDestroy.subscribe(evt => {
+                this.onRowDestroy.emit(evt);
+            }),
+            this.selectService.onDoubleClick.subscribe(evt => {
+                this.onDoubleClick.emit(evt);
+            }),
+            this.selectService.onClick.subscribe(evt => {
+                this.onClick.emit(evt);
+            })
+        ];
 
         this.pageServices = this.dataService.pages
             .map(pages => {
@@ -105,6 +116,10 @@ export class AwGrid implements AfterViewInit {
 
         if (this._colsDef && this._colsDef.length > 0)
             this.refresh();
+    }
+
+    ngOnDestroy() {
+        this._teardowns.forEach(t => t.unsubscribe());
     }
 
     columnResizing: boolean = false;

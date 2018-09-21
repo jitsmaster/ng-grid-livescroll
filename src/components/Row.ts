@@ -50,7 +50,7 @@ export class Row {
 		}
 	}
 
-	onDoubleCLick(row: GridRow, evt: MouseEvent) {
+	onDoubleClick(row: GridRow, evt: MouseEvent) {
 		if (row)
 			this.selectService.onDoubleClick.emit(row);
 	}

@@ -66,3 +66,9 @@ export class SelectRangeState {
 	fromPageRow: number;
 	toPageRow: number;
 }
+
+export class GridClickEventModel {
+	cell: GridCell;
+	row: GridRow;
+	domNode: HTMLElement;
+}
