@@ -12,7 +12,7 @@ import { SortingService } from '../services/SortingService';
 		'[style.width]': 'colWidth',
 		'[style.minWidth]': 'colWidth',
 		'[style.maxWidth]': 'colWidth',
-		'(mouseup)': 'sort($event)'
+		'(mousedown)': 'sort($event)'
 	}
 })
 export class HeaderColumn {

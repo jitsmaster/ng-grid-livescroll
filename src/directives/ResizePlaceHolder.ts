@@ -16,7 +16,7 @@ export class ResizerPlaceHolder {
 	}
 
 	startColumnResizing(evt: MouseEvent) {
-		evt.stopPropagation;
+		evt.stopPropagation();
 		evt.preventDefault();
 		
 		this.colResizeService.onColumnResizeStart.emit({
