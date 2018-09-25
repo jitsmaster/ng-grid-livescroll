@@ -138,11 +138,17 @@ gulp.task('compile-test', ['clean', 'less'], function (cb) {
 	//	.pipe(gulp.dest('.'));
 
 
-	exec('"node_modules\\.bin\\ngc" -p tsconfig_aot_test.json', function (err, stdout, stderr) {
+	// exec('"node_modules\\.bin\\ngc" -p tsconfig_aot_test.json', function (err, stdout, stderr) {
+	// 	console.log(stdout);
+	// 	//console.log(stderr);
+	// 	cb(err);
+	// });
+
+	exec('"node_modules\\.bin\\ngc" -p tsconfig_aot.json', function (err, stdout, stderr) {
 		console.log(stdout);
 		//console.log(stderr);
 		cb(err);
-	});
+	});	
 });
 
 // update the tsconfig files based on the glob pattern
@@ -171,7 +177,7 @@ gulp.task('build', ['tslint', 'compile', 'concat-debug:libs'], function (cb) {
 	});
 });
 
-gulp.task('build-debug', ['tslint', 'compile', 'concat-debug:libs'], function (cb) {
+gulp.task('build-debug', ['tslint', 'compile-test', 'concat-debug:libs'], function (cb) {
 	//var b = browserify("./ngscripts/main.js", {
 	//	debug: true
 	//})

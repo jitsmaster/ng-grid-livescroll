@@ -5,6 +5,7 @@ import { GridColumnDef, GridRow } from '../src/models/GridModels';
 import { GridDataServiceBase } from '../src/services/GridDataService';
 import { TestGridDataService } from './TestGridDataService';
 import { DndService } from '../src/services/DndService';
+import { ReactiveGridService, SortingService, SelectService, ColumnResizeService } from '../Grid';
 
 @Component({
 	template: `
@@ -35,6 +36,7 @@ import { DndService } from '../src/services/DndService';
 	`,
 	selector: "test-app",
 	providers: [
+		ReactiveGridService, SortingService, SelectService, ColumnResizeService,
 		DndService,
 		{
 			provide: GridDataServiceBase,
