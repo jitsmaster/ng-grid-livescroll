@@ -35,6 +35,7 @@ exports.SelectRangeState = GridModels_1.SelectRangeState;
 exports.SortState = GridModels_1.SortState;
 exports.GridColumnResizeModel = GridModels_1.GridColumnResizeModel;
 exports.GridRowEventModel = GridModels_1.GridRowEventModel;
+exports.GridClickEventModel = GridModels_1.GridClickEventModel;
 var DndModels_1 = require("./src/models/DndModels");
 exports.BoxCoords = DndModels_1.BoxCoords;
 exports.Coords = DndModels_1.Coords;

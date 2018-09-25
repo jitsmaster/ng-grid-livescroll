@@ -10,7 +10,7 @@ export { GridDropTarget } from "./src/directives/GridDropTarget";
 export { LiveScroll } from "./src/directives/LiveScroll";
 export { ResizerPlaceHolder } from "./src/directives/ResizePlaceHolder";
 export { WidthUnitType } from "./src/models/enums";
-export { GridCell, GridColumnDef, GridDataRequest, GridDataResponse, GridRow, SelectItemsState, SelectRangeState, SortState, GridColumnResizeModel, GridRowEventModel } from "./src/models/GridModels";
+export { GridCell, GridColumnDef, GridDataRequest, GridDataResponse, GridRow, SelectItemsState, SelectRangeState, SortState, GridColumnResizeModel, GridRowEventModel, GridClickEventModel } from "./src/models/GridModels";
 export { BoxCoords, Coords, DragSourceModel, DropTargetModel, Gravity } from "./src/models/DndModels";
 export { AsyncPipeService } from "./src/services/AsyncPipeService";
 export { GridDataServiceBase } from "./src/services/GridDataService";
