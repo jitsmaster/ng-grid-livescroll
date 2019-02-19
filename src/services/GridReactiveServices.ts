@@ -121,6 +121,8 @@ export class ReactiveGridService {
 
 	public selectService: SelectService;
 
+	infiniteScrollMode: boolean = false;
+
 	set allowDrag(val: boolean) {
 		this._allowDrag = true;
 		this.pageServices.forEach(page => page.allowDrag = val);
@@ -147,7 +149,7 @@ export class ReactiveGridService {
 	allRows: any[];
 
 	protected _pagesSubject: BehaviorSubject<ReactiveGridPageService[]>
-	= new BehaviorSubject<ReactiveGridPageService[]>([]);
+		= new BehaviorSubject<ReactiveGridPageService[]>([]);
 	pages: Observable<ReactiveGridPageService[]> = this._pagesSubject.asObservable();
 
 	sortField: string;
@@ -247,55 +249,77 @@ export class ReactiveGridService {
 					if (!resp || !resp.rows)
 						return;
 
-					if (this.isFirstRequest) {
-						var lastPageSize = resp.totalCount % this.pageSize || this.pageSize;
-						var pages = Math.ceil(resp.totalCount / this.pageSize);
-
-						this.pageServices = Array.from({ length: pages }, (v, k) => {
+					if (resp.totalCount < 0) {
+						this.infiniteScrollMode = true;
+						
+						//infinite scroll mode
+						if (resp.page == this.pageServices.length - 1) {
+							//when return rows count > 0, add another page at the end
 							var s = new ReactiveGridPageService(
 								this.columnsDef,
 								this.idField,
 								this.pageSize,
-								resp.page,
-								resp.page == pages - 1 ? lastPageSize : this.pageSize);
+								resp.page + 1,
+								this.pageSize);
 							s.allowDrag = this._allowDrag;
-							return s;
-						});
+							this.pageServices.push(s);
+						}
 
-						this._pagesSubject.next(this.pageServices);
-
-						this.isFirstRequest = false;
+						this._setPageData(resp);
 					}
+					else {
+						if (this.isFirstRequest) {
+							var lastPageSize = resp.totalCount % this.pageSize || this.pageSize;
+							var pages = Math.ceil(resp.totalCount / this.pageSize);
 
-					//if all rows are returned, set them directly, otherwise, set the first one
-					if (resp.rows && resp.rows.length > 0) {
-						if (resp.rows.length == resp.totalCount) {
-							//set all rows
-							this.allRows = resp.rows;
+							this.pageServices = Array.from({ length: pages }, (v, k) => {
+								var s = new ReactiveGridPageService(
+									this.columnsDef,
+									this.idField,
+									this.pageSize,
+									k,
+									resp.page == pages - 1 ? lastPageSize : this.pageSize);
+								s.allowDrag = this._allowDrag;
+								return s;
+							});
+
+							this._pagesSubject.next(this.pageServices);
+
+							this.isFirstRequest = false;
 						}
 
-						if (resp.rows.length <= this.pageSize) {
-							this.pageServices[resp.page].setData(resp.rows);
-							var selectedRows: GridRow[] = [];
-
-							if (this.selectedIndexes && this.selectedIndexes.length > 0) {
-								var selectedRows = this.pageServices[resp.page]
-									.rowsState
-									.filter(r => this.selectedIndexes.find(idx => r.index == idx));
-							}
-							else if (this.selectedIds && this.selectedIds.length > 0) {
-								var selectedRows = this.pageServices[resp.page]
-									.rowsState
-									.filter(r => this.selectedIds.find(id => r.id == id));
+						//if all rows are returned, set them directly, otherwise, set the first one
+						if (resp.rows && resp.rows.length > 0) {
+							if (resp.rows.length == resp.totalCount) {
+								//set all rows
+								this.allRows = resp.rows;
 							}
 
-							if (selectedRows.length > 0)
-								selectedRows.forEach(r => this.selectService.markAsSelected(r));
+							this._setPageData(resp);
 						}
-						else
-							throw new Error("Invalid grid data: Page data overflow.");
 					}
 				});
 		});
+	}
+
+	private _setPageData(resp: GridDataResponse) {
+		if (resp.rows.length <= this.pageSize) {
+			this.pageServices[resp.page].setData(resp.rows);
+			var selectedRows: GridRow[] = [];
+			if (this.selectedIndexes && this.selectedIndexes.length > 0) {
+				var selectedRows = this.pageServices[resp.page]
+					.rowsState
+					.filter(r => this.selectedIndexes.find(idx => r.index == idx));
+			}
+			else if (this.selectedIds && this.selectedIds.length > 0) {
+				var selectedRows = this.pageServices[resp.page]
+					.rowsState
+					.filter(r => this.selectedIds.find(id => r.id == id));
+			}
+			if (selectedRows.length > 0)
+				selectedRows.forEach(r => this.selectService.markAsSelected(r));
+		}
+		else
+			throw new Error("Invalid grid data: Page data overflow.");
 	}
 }
