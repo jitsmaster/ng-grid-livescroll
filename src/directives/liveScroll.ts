@@ -20,7 +20,7 @@ export class LiveScroll {
 			.distinctUntilChanged()
 			.map(evt => {
 				if (!evt)
-					return [];
+					return [0];
 
 				//detect visible pages
 				var container = this.ele.nativeElement as HTMLElement;
@@ -47,7 +47,7 @@ export class LiveScroll {
 			.map(evt => {
 				if (!evt)
 					return 0;
-				
+
 				var container = this.ele.nativeElement as HTMLElement;
 				return container.scrollLeft;
 			});
