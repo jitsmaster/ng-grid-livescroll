@@ -7,7 +7,7 @@ export { Row } from "./src/components/Row";
 export { ColumnResizer } from "./src/directives/ColumnResizer";
 export { GridDragSource } from "./src/directives/GridDragSource";
 export { GridDropTarget } from "./src/directives/GridDropTarget";
-export { LiveScroll } from "./src/directives/LiveScroll";
+export { LiveScroll } from "./src/directives/liveScroll";
 export { ResizerPlaceHolder } from "./src/directives/ResizePlaceHolder";
 export { WidthUnitType } from "./src/models/enums";
 export {
