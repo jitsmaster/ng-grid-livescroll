@@ -1,0 +1,12 @@
+<span>
+	{{label}}
+</span>
+<span 
+	class="sortingSymbol"
+	[class.sort]="(sortingService.sortState.model | async).column == model 
+		&& (sortingService.sortState.model | async).sorting"
+	[class.desc]="(sortingService.sortState.model | async).column == model 
+		&& (sortingService.sortState.model | async).descending">
+		&#10148;
+</span>
+<span class="resizer" [resizer]="model"></span>

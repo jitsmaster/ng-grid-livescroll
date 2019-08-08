@@ -1,8 +1,9 @@
-﻿{
+{
   "compileOnSave": true,
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "es5",
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "sourceMap": false,
     "emitDecoratorMetadata": true,
@@ -12,7 +13,11 @@
     "suppressImplicitAnyIndexErrors": true,
     "declaration": true,
     "skipLibCheck": true,
-    "noStrictGenericChecks": false
+    "noStrictGenericChecks": false,
+    "paths": {
+      "ng2-grid-livescroll": ["dist/ng2-grid-livescroll"],
+      "ng2-grid-livescroll/*": ["dist/ng2-grid-livescroll/*"]
+    }
   },
   "files": [
     "node_modules/typescript/lib/lib.es6.d.ts",
