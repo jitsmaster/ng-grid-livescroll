@@ -20,4 +20,9 @@ export * from './lib/services/GridReactiveServices';
 export * from './lib/services/SortingService';
 export * from './lib/services/SelectService';
 export * from './lib/services/ColumnResizeService';
+
+export * from './lib/models/GridModels';
+export * from './lib/models/DndModels';
+export * from './lib/models/enums';
+
 export * from './lib/ng2-grid-livescroll.module';
