@@ -18,6 +18,8 @@
     "node_modules/typescript/lib/lib.es6.d.ts",
     "test/app.module.ts",
     "Grid.ts",
+    "src/main.ts",
+    "src/polyfills.ts",
     "src/ng2grid.module.ts",
     "src/components/AwGrid.ts",
     "src/components/Cell.ts",

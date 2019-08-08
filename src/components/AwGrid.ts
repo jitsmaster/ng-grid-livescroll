@@ -64,7 +64,7 @@ export class AwGrid implements AfterViewInit {
     @Input() selectionMode: SelectionMode = SelectionMode.multiple;
     @Input() selected: string[];
 
-    @ViewChild(LiveScroll) liveScroll: LiveScroll;
+    @ViewChild(LiveScroll, { static: false }) liveScroll: LiveScroll;
     @ViewChildren(Page) _pages: QueryList<Page>;
 
     @Output() onSelect: EventEmitter<GridRow[]> = new EventEmitter<GridRow[]>();

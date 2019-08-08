@@ -76,14 +76,14 @@ export class TestApp {
 		} as GridColumnDef;
 
 		return colDef;
-	});	
+	});
 
 	onSelect(gridName: string, rows: GridRow[]) {
 		// this._logs.push("Grid " + gridName + " Selected: " + rows.map(r => r.id).join(", "));
 		// this.logs.emit(this._logs);
 	}
 
-	@ViewChild(AwGrid) grid: AwGrid;
+	@ViewChild(AwGrid, { static: false }) grid: AwGrid;
 
 	refresh() {
 		this.grid.refresh();
