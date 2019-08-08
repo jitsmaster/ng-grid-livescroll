@@ -1,8 +1,80 @@
 {
   "name": "ng2-grid-livescroll",
-  "version": "0.0.1",
+  "author": {
+    "name": "Arnold Wang",
+    "email": "arnold.wang@ingeniux.com"
+  },
+  "publisher": "Ingeniux Corporation",
+  "description": "An Angular Grid that is 100% based on rxjs Observables, and client/server side live-scroll",
+  "homepage": "https://github.com/jitsmaster/ng-grid-livescroll",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jitsmaster/ng-grid-livescroll.git"
+  },
+  "keywords": [
+    "grid",
+    "data",
+    "livescroll",
+    "reactive",
+    "rxjs",
+    "observable",
+    "angular",
+    "angular8"
+  ],
+  "version": "1.0.81",
+  "license": "MIT",
+  "scripts": {
+    "pub": "gulp && npm publish",
+    "serve": "gulp build-debug && http-server -p 9292",
+    "module_test": "gulp build-test && http-server -p 9292"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-ng-packagr": "~0.802.0",
+    "@angular/common": "8.2.0",
+    "@angular/compiler": "8.2.0",
+    "@angular/compiler-cli": "8.2.0",
+    "@angular/cli": "8.2.0",
+    "@angular/core": "8.2.0",
+    "@angular/http": "7.2.15",
+    "@angular/platform-browser": "8.2.0",
+    "@angular/platform-browser-dynamic": "8.2.0",
+    "@angular-devkit/schematics": "8.2.0",
+    "@angular-devkit/build-angular": "0.802.0",
+    "ng-packagr": "^5.3.0",
+    "rxjs-compat": "6.5.2",
+    "gulp-less": "3.3.0",
+    "reflect-metadata": "0.1.8",
+    "rxjs": "6.5.2",
+    "systemjs": "0.19.40",
+    "tsickle": "^0.36.0",
+    "zone.js": "0.9.1",
+    "http-server": "^0.9.0",
+    "del": "^2.2.2",
+    "gulp": "3.9.1",
+    "gulp-concat": "2.6.1",
+    "gulp-inline-ng2-template": "4.0.0",
+    "gulp-load-plugins": "1.4.0",
+    "gulp-rollup": "2.5.1",
+    "gulp-tslint": "4.3.3",
+    "gulp-typescript": "3.1.2",
+    "gulp-uglify": "2.0.0",
+    "ntsc": "~0.2.0",
+    "rollup": "^0.36.3",
+    "rollup-plugin-commonjs": "^5.0.5",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-uglify": "^1.0.1",
+    "tsc": "~1.20150623.0",
+    "tsconfig-glob": "~0.4.3",
+    "tsd": "~0.6.5",
+    "tslint": "~3.15.1",
+    "typescript": "3.5.3",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "main": "./dist/ng2grid.js",
   "peerDependencies": {
-    "@angular/common": "^8.2.0",
-    "@angular/core": "^8.2.0"
+    "reflect-metadata": ">=0.1.8",
+    "natives": "^1.1.6",
+    "tslib": "^1.10.0"
   }
 }
