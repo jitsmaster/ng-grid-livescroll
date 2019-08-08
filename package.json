@@ -19,10 +19,9 @@
     "rxjs",
     "observable",
     "angular",
-    "angular4",
-    ""
+    "angular8"
   ],
-  "version": "1.0.71",
+  "version": "1.0.73",
   "license": "MIT",
   "scripts": {
     "pub": "gulp && npm publish",

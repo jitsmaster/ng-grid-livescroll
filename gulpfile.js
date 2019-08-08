@@ -36,11 +36,11 @@ gulp.task('clean', function () {
 // copy dependencies
 gulp.task('concat:libs', ['clean'], function () {
 	return gulp.src([
-				"node_modules/core-js/client/shim.min.js",
-				"node_modules/systemjs/dist/system.js",
-				"node_modules/zone.js/dist/zone.js",
-				"node_modules/reflect-metadata/Reflect.js",
-				"node_modules/bootstrap/dist/js/bootstrap.js"
+		"node_modules/core-js/client/shim.min.js",
+		"node_modules/systemjs/dist/system.js",
+		"node_modules/zone.js/dist/zone.js",
+		"node_modules/reflect-metadata/Reflect.js",
+		"node_modules/bootstrap/dist/js/bootstrap.js"
 	])
 		.pipe(concat('libs.js'))
 		.pipe(uglify())
@@ -48,11 +48,11 @@ gulp.task('concat:libs', ['clean'], function () {
 });
 gulp.task('concat-debug:libs', ['clean'], function () {
 	return gulp.src([
-				"node_modules/core-js/client/shim.min.js",
-				"node_modules/systemjs/dist/system.js",
-				"node_modules/zone.js/dist/zone.js",
-				"node_modules/reflect-metadata/Reflect.js",
-				"node_modules/bootstrap/dist/js/bootstrap.js"
+		"node_modules/core-js/client/shim.min.js",
+		"node_modules/systemjs/dist/system.js",
+		"node_modules/zone.js/dist/zone.js",
+		"node_modules/reflect-metadata/Reflect.js",
+		"node_modules/bootstrap/dist/js/bootstrap.js"
 	])
 		.pipe(concat('libs.js'))
 		.pipe(gulp.dest('dist/ng2'));
@@ -61,20 +61,20 @@ gulp.task('concat-debug:libs', ['clean'], function () {
 //linting
 gulp.task('tslint', function () {
 	return gulp.src('ngscripts/**/*.ts')
-	  .pipe(gulpPlugins.tslint())
-	  .pipe(gulpPlugins.tslint.report('verbose'));
+		.pipe(gulpPlugins.tslint())
+		.pipe(gulpPlugins.tslint.report('verbose'));
 });
 
 gulp.task('less', function () {
-  return gulp.src('./src/components/templates/awgrid.less')
-    .pipe(less({}))
-    .pipe(gulp.dest('./src/components/templates'));
+	return gulp.src('./src/components/templates/awgrid.less')
+		.pipe(less({}))
+		.pipe(gulp.dest('./src/components/templates'));
 });
 
-gulp.task('compileDef', ['compile'], function(cb) {
+gulp.task('compileDef', ['compile'], function (cb) {
 	//in order to bundle with module name, have to manually create config
 	var manualConfig = typescript.createProject('tsconfig.json', {
-		"module": "commonjs",
+		"module": "es2015",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"target": "es5"
@@ -148,7 +148,7 @@ gulp.task('compile-test', ['clean', 'less'], function (cb) {
 		console.log(stdout);
 		//console.log(stderr);
 		cb(err);
-	});	
+	});
 });
 
 // update the tsconfig files based on the glob pattern
