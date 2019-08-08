@@ -8,8 +8,8 @@ Thumbs.db
 .DS_Store
 # Ignored files
 *.less
-*.ts
-!*.d.ts
+#*.ts
+#!*.d.ts
 index.*
 rollup*.js
 tsconfi*.json
