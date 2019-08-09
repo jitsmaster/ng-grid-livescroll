@@ -1,16 +1,28 @@
-<div class="awgrid" [style.height]="height"
-	[grid-dragsource]="dragSourceType" [drag-disabled]="!allowDrag" 
-	[grid-droptarget]="acceptDropTypes" [drop-disabled]="!allowDrop">
-	<div class="thead" [scrollLeft]="liveScroll.scrollLeft | async" column-resizer (onColumnResizing)="onColumnResizing($event)"
-		[class.columnResizing]="columnResizing">
-		<div [style.paddingRight]="liveScroll.paddingRight | async">
-			<div aw-grid-head-col class="th" *ngFor="let colDef of columns | async" 
-				[model]="colDef"></div>
+<div class="awgrid"
+	 [style.height]="height"
+	 [grid-dragsource]="dragSourceType"
+	 [drag-disabled]="!allowDrag"
+	 [grid-droptarget]="acceptDropTypes"
+	 [drop-disabled]="!allowDrop">
+	<div class="thead"
+		 [scrollLeft]="(liveScroll?.scrollLeft | async) || 0"
+		 column-resizer
+		 (onColumnResizing)="onColumnResizing($event)"
+		 [class.columnResizing]="columnResizing">
+		<div [style.paddingRight]="(liveScroll?.paddingRight | async) || 0">
+			<div aw-grid-head-col
+				 class="th"
+				 *ngFor="let colDef of columns | async"
+				 [model]="colDef"></div>
 		</div>
 	</div>
-	<div class="tbody" 
-		live-scroll [pages]="pages" (onLiveScroll)="onLiveScroll($event)">
-		<div aw-grid-page class="tpage" *ngFor="let page of pageServices | async" 
-			[pageService]="page"></div>
+	<div class="tbody"
+		 live-scroll
+		 [pages]="pages"
+		 (onLiveScroll)="onLiveScroll($event)">
+		<div aw-grid-page
+			 class="tpage"
+			 *ngFor="let page of pageServices | async"
+			 [pageService]="page"></div>
 	</div>
 </div>
