@@ -1,4 +1,4 @@
-import { Component, Input, Output, ElementRef, Renderer, EventEmitter } from '@angular/core';
+import { Component, Input, Output, ElementRef, EventEmitter, Renderer2 } from '@angular/core';
 import { GridRow } from '../models/GridModels';
 import { ReactiveGridPageService } from '../services/GridReactiveServices';
 import { SelectService } from '../services/SelectService';

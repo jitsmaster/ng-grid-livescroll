@@ -6,7 +6,7 @@ import { GridDataServiceBase } from './GridDataService';
 import { SelectService } from './SelectService';
 import { AsyncPipeService } from './AsyncPipeService';
 
-@Injectable()
+
 export class ReactiveGridPageService {
 	protected _rowsSubject = new BehaviorSubject<GridRow[]>([]);
 	rows = this._rowsSubject.asObservable();
@@ -251,7 +251,7 @@ export class ReactiveGridService {
 
 					if (resp.totalCount < 0) {
 						this.infiniteScrollMode = true;
-						
+
 						//infinite scroll mode
 						if (resp.page == this.pageServices.length - 1) {
 							//when return rows count > 0, add another page at the end

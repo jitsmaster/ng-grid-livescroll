@@ -1,8 +1,9 @@
-import { Output, EventEmitter } from '@angular/core';
+import { Output, EventEmitter, Directive } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { GridRow } from '../models/GridModels';
 import { DragSourceModel, DropTargetModel } from '../models/DndModels';
 
+@Directive()
 export class DndService {
 	dragDisabled: boolean;
 	dropDisabled: boolean;

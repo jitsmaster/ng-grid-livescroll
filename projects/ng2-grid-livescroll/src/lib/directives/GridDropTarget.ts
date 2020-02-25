@@ -1,4 +1,4 @@
-import { Directive, Input, Output, EventEmitter, ElementRef, Renderer } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, ElementRef, Renderer2 } from '@angular/core';
 import { GridRow } from '../models/GridModels';
 import { Coords, BoxCoords, Gravity, DropTargetModel } from '../models/DndModels';
 import { ReactiveGridService } from '../services/GridReactiveServices';
@@ -37,7 +37,7 @@ export class GridDropTarget {
 
 	constructor(
 		public ele: ElementRef,
-		public render: Renderer,
+		public render: Renderer2,
 		public dataService: ReactiveGridService,
 		public dndService: DndService) {
 	}
@@ -57,7 +57,7 @@ export class GridDropTarget {
 		evt.dataTransfer.dropEffect = "move";
 
 		//add drop target marker, since it is a Directive with dom access
-		this.render.setElementClass(this.ele.nativeElement, "dropTargetOn", true);
+		this.render.addClass(this.ele.nativeElement, "dropTargetOn");
 
 		//get position of the mouse cursor relative to the drop box
 		var relativePosition = <Coords>{
@@ -87,7 +87,7 @@ export class GridDropTarget {
 		if (!this.allowDragOver())
 			return;
 
-		this.render.setElementClass(this.ele.nativeElement, "dropTargetOn", false);
+		this.render.removeClass(this.ele.nativeElement, "dropTargetOn");
 
 		this.dndService.onDragOff.next(new DropTargetModel<any>(
 			this.ele.nativeElement as HTMLElement,

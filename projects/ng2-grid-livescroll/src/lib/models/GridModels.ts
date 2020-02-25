@@ -1,6 +1,7 @@
 import { WidthUnitType } from './enums';
 import { AsyncPipeService } from '../Services/AsyncPipeService';
-import { ElementRef } from "@angular/core";
+import { ElementRef, Injectable } from "@angular/core";
+
 
 export class GridColumnDef {
 	label: string;

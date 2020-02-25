@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "target": "es5",
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "sourceMap": false,
     "emitDecoratorMetadata": true,
