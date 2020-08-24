@@ -63,7 +63,7 @@ export class SelectService {
 			this.selected.splice(pos, 1);
 		}
 		// row.selected.triggerUpdate(true);
-		
+
 	}
 
 	selectMany(rows: GridRow[]) {
@@ -90,7 +90,8 @@ export class SelectService {
 		this.dataService.selectedIndexes = [];
 
 		for (var i = startIndex; i <= endIndex; i++) {
-			this.dataService.selectedIndexes.push(i);
+			if (this.dataService.selectedIndexes.indexOf(i) < 0)
+				this.dataService.selectedIndexes.push(i);
 		}
 
 		//now do select on fullfilled pages
@@ -100,7 +101,10 @@ export class SelectService {
 				var selectedRows = page.rowsState
 					.filter(r => r.index <= endIndex && r.index >= startIndex);
 
-				this.selected = this.selected.concat(selectedRows);
+				selectedRows.forEach(row => {
+					if (this.selected.indexOf(row) < 0)
+						this.selected.push(row);
+				});
 
 				selectedRows
 					.forEach(r => r.selected = true);
