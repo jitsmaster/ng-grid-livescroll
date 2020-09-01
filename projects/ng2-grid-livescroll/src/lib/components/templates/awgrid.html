@@ -20,6 +20,10 @@
 		 live-scroll
 		 [pages]="pages"
 		 (onLiveScroll)="onLiveScroll($event)">
+		<div style="text-align: center;padding:20px;"
+			 *ngIf="!initialized">
+			<span class="fa fa-spinner fa-pulse fa-3x"></span>
+		</div>
 		<div aw-grid-page
 			 class="tpage"
 			 *ngFor="let page of pageServices | async"

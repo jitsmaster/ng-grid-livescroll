@@ -132,7 +132,15 @@ export class AwGrid implements AfterViewInit {
         this.liveScroll.fit();
     }
 
+    initialized: boolean = false;
+
     refresh() {
+        let sub = this.dataService.initialRequestDone
+            .subscribe(data => {
+                sub.unsubscribe();
+                this.initialized = true;
+            });
+
         this.dataService.initialize(this.pageSize, this._colsDef, this.idField);
         this.dataService.currentPages = [0];
         this.liveScroll.reset();

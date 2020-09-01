@@ -1,24 +1,62 @@
-# Ng2GridLivescroll
+## Installation:
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
+> npm install ng2-grid-livescroll --save
 
-## Code scaffolding
+## Create data service for grid:
 
-Run `ng generate component component-name --project ng2-grid-livescroll` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng2-grid-livescroll`.
-> Note: Don't forget to add `--project ng2-grid-livescroll` or else it will be added to the default project in your `angular.json` file. 
+```
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { GridDataServiceBase, GridDataResponse } from 'ng2-grid-livescroll/Grid';
 
-## Build
+export class ActualGridDataService extends GridDataServiceBase {
 
-Run `ng build ng2-grid-livescroll` to build the project. The build artifacts will be stored in the `dist/` directory.
+	private gridDataObs = this._gridDataSubj.asObservable();
 
-## Publishing
+	requestData(page: number, pageSize: number,
+		sortField: string, sortDsc: boolean): Observable<GridDataResponse> {
 
-After building your library with `ng build ng2-grid-livescroll`, go to the dist folder `cd dist/ng2-grid-livescroll` and run `npm publish`.
+		var pageData: Observable<GridDataResponse>;
+		//implementation to return observable
 
-## Running unit tests
+		return pageData
+	}
+}
+```
 
-Run `ng test ng2-grid-livescroll` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Create grid wrapper component to use the data service:
 
-## Further help
+```
+import { Component, Input, Output, ViewChild, NgZone, EventEmitter } from '@angular/core';
+import { AwGrid, GridColumnDef, GridDataServiceBase, GridRow } from 'ng2-grid-livescroll/Grid';
+import { ActualGridDataService } from '../../services/Grid/ActualGridDataService';
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+@Component({
+	template: `
+	<aw-grid [idField]="'Version'" [columnsDef]="colsDef"
+		[pageSize]="100" [height]="'100%'"
+		(onSelect)="select($event)"
+		[selectionMode]="0">
+	</aw-grid>
+	`,
+	providers: [{
+		provide: GridDataServiceBase,
+		useClass: ActualGridDataService
+	}]
+})
+export class ActualGridWrapper {
+	@Input() colsDef: GridColumnDef[];
+	@ViewChild(AwGrid) grid: AwGrid;
+	@Output() onSelect: EventEmitter<GridRow> = new EventEmitter<GridRow>();
+
+	constructor(public zone: NgZone) {
+	}
+
+	select(rows: GridRow[]) {
+		this.onSelect.emit(rows.length > 0 ? rows[0] : null);
+	}
+
+	refresh() {
+		this.grid.refresh()
+	}
+}
+```

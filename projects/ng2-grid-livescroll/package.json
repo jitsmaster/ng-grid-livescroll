@@ -21,7 +21,7 @@
     "angular",
     "angular8"
   ],
-  "version": "1.0.85",
+  "version": "1.0.92",
   "license": "MIT",
   "scripts": {
     "pub": "gulp && npm publish",

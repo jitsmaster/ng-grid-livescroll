@@ -33,6 +33,7 @@ export class ReactiveGridPageService {
 
 		//create stubbing rows with no cells
 		this._rowsSubject.next(Array.from({ length: rowsCount }, (v, k) => {
+
 			return {
 				id: "",
 				// selected: new AsyncPipeService<boolean>(false),
@@ -43,7 +44,7 @@ export class ReactiveGridPageService {
 						width: 100,
 						widthUnit: WidthUnitType.percent
 					} as GridColumnDef,
-					value: ""
+					value: `<span class="fa fa-spinner fa-pulse"></span>`
 				}]
 			} as GridRow;
 		}));
@@ -200,6 +201,8 @@ export class ReactiveGridService {
 			.forEach(p => p.removeRows(rows));
 	}
 
+	initialRequestDone: EventEmitter<boolean> = new EventEmitter<boolean>();
+
 	requestData(sortField: string, sortDsc: boolean, selectedIds?: string[]) {
 		if (sortField != this.sortField
 			|| sortDsc != this.sortDsc) {
@@ -297,6 +300,8 @@ export class ReactiveGridService {
 
 							this._setPageData(resp);
 						}
+						else
+							this.initialRequestDone.emit(true);
 					}
 				});
 		});
@@ -318,6 +323,8 @@ export class ReactiveGridService {
 			}
 			if (selectedRows.length > 0)
 				selectedRows.forEach(r => this.selectService.markAsSelected(r));
+
+			this.initialRequestDone.emit(true);
 		}
 		else
 			throw new Error("Invalid grid data: Page data overflow.");
