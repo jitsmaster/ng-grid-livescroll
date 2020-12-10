@@ -28,5 +28,7 @@
 			 class="tpage"
 			 *ngFor="let page of pageServices | async"
 			 [pageService]="page"></div>
+		<div class="noRecords"
+			 *ngIf="!!initialized && totalCount === 0">{{noRecordsMessage}}</div>
 	</div>
 </div>

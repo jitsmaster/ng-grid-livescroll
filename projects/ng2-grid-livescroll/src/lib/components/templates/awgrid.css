@@ -87,7 +87,21 @@
   flex: 1 1 auto;
   overflow: auto;
   box-sizing: border-box;
+  position: relative;
 }
+
+.awgrid .tbody .noRecords {
+  position: absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  right:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .awgrid .tbody .tpage .tr {
   border-bottom: 1px solid #d9dde4;
   line-height: 1rem;

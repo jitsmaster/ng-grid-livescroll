@@ -144,6 +144,8 @@ export class ReactiveGridService {
 	columnsDef: GridColumnDef[];
 	idField: string;
 
+	totalCount: number;
+
 	isFirstRequest: boolean = true;
 
 	pageServices: ReactiveGridPageService[] = [];
@@ -251,6 +253,8 @@ export class ReactiveGridService {
 				.subscribe(resp => {
 					if (!resp || !resp.rows)
 						return;
+
+					this.totalCount = resp.totalCount;
 
 					if (resp.totalCount < 0) {
 						this.infiniteScrollMode = true;

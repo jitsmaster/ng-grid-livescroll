@@ -32,6 +32,7 @@ export class AwGrid implements AfterViewInit {
 
     private _teardowns = [];
 
+    @Input() noRecordsMessage: string = "";
     @Input() idField: string;
     @Input() set allowDrag(val: boolean) {
         this.dndService.dragDisabled = !val;
@@ -77,6 +78,10 @@ export class AwGrid implements AfterViewInit {
         if (!this._pages)
             return [];
         return this._pages.map(p => p);
+    }
+
+    get totalCount(): number {
+        return this.dataService.totalCount;
     }
 
     constructor(public dataService: ReactiveGridService, public selectService: SelectService,
