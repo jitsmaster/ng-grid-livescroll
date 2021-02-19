@@ -38,6 +38,9 @@ export class ColumnResizer {
 
 		if (!!this.columnToResize) {
 			//use mouse position diffing to get the width
+			if (!this.columnToResize.colDef.minWidth) {
+				this.columnToResize.colDef.minWidth = 0;
+			}
 			this.columnToResize.colDef.width = Math.max(this.columnToResize.colDef.width + widthDiff,
 				this.columnToResize.colDef.minWidth);
 			this.columnToResize.colDef.widthUnit = WidthUnitType.px;
@@ -47,7 +50,7 @@ export class ColumnResizer {
 	confirmColumnResizing(evt: MouseEvent) {
 		if (!this.columnToResize)
 			return;
-					
+
 		evt.stopPropagation();
 		evt.preventDefault();
 
