@@ -18,13 +18,14 @@ import { ReactiveGridService } from "./services/GridReactiveServices";
 import { SortingService } from "./services/SortingService";
 import { SelectService } from "./services/SelectService";
 import { ColumnResizeService } from "./services/ColumnResizeService";
+import { FullHtmlPipe } from "./pipes/FullHtml";
 
 @NgModule({
   imports: [BrowserModule, HttpClientModule],
   declarations: [AwGrid, Page, HeaderColumn, Row, Cell, LiveScroll,
-    ColumnResizer, ResizerPlaceHolder, GridDragSource, GridDropTarget],
+    ColumnResizer, ResizerPlaceHolder, GridDragSource, GridDropTarget, FullHtmlPipe],
   exports: [AwGrid, Page, HeaderColumn, Row, Cell, LiveScroll,
-    ColumnResizer, ResizerPlaceHolder, GridDragSource, GridDropTarget],
+    ColumnResizer, ResizerPlaceHolder, GridDragSource, GridDropTarget, FullHtmlPipe],
   providers: [ReactiveGridService, SortingService, SelectService, ColumnResizeService],
   entryComponents: [],
 })
