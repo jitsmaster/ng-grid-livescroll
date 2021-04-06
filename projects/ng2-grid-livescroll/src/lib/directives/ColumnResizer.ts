@@ -22,6 +22,7 @@ export class ColumnResizer {
 			this.onColumnResizing.emit(colDef);
 			this.columnToResize = colDef;
 			this.lastMouseLeft = colDef.mouseLeft;
+			this.columnToResize.colDef.cellWidth = this.columnToResize.colDef.width;
 		});
 	}
 
@@ -53,6 +54,11 @@ export class ColumnResizer {
 
 		evt.stopPropagation();
 		evt.preventDefault();
+
+		//set cell width when mouse stop moving. This finally set the 
+		//cell's width for each row.
+		//This way it reduced the lag when resizing columns
+		this.columnToResize.colDef.cellWidth = this.columnToResize.colDef.width
 
 		this.columnToResize = null;
 		this.onColumnResizing.emit(null);

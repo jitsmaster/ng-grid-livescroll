@@ -1,6 +1,7 @@
 import { NgModule, NgZone } from "@angular/core";
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { ScrollingModule } from "@angular/cdk/scrolling";
 
 import { AwGrid } from './components/AwGrid';
 import { Page } from './components/Page';
@@ -21,7 +22,7 @@ import { ColumnResizeService } from "./services/ColumnResizeService";
 import { FullHtmlPipe } from "./pipes/FullHtml";
 
 @NgModule({
-  imports: [BrowserModule, HttpClientModule],
+  imports: [BrowserModule, HttpClientModule, ScrollingModule],
   declarations: [AwGrid, Page, HeaderColumn, Row, Cell, LiveScroll,
     ColumnResizer, ResizerPlaceHolder, GridDragSource, GridDropTarget, FullHtmlPipe],
   exports: [AwGrid, Page, HeaderColumn, Row, Cell, LiveScroll,

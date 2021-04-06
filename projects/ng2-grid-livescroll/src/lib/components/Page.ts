@@ -5,10 +5,25 @@ import { SelectService } from '../services/SelectService';
 
 @Component({
 	templateUrl: "./templates/Page.html",
-	selector: "[aw-grid-page]"
+	selector: "[aw-grid-page]",
+	host: {
+		"[style.height]": "emptyHeight"
+	}
 })
 export class Page {
 	@Input() pageService: ReactiveGridPageService;
-	constructor(public ele: ElementRef, public selectService: SelectService) {
+	@Input() emptyRowHeight: number;
+	@Input() pageRowCount: number;
+	constructor(
+		public ele: ElementRef, public selectService: SelectService) {
+	}
+
+	get emptyHeight(): string {
+		if (!this.pageService.clientDataFullfilled) {
+			return `${this.emptyRowHeight * this.pageRowCount}px`;
+		}
+		else {
+			return "auto";
+		}
 	}
 }

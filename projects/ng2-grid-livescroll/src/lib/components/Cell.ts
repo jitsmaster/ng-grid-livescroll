@@ -29,8 +29,9 @@ export class Cell {
 	}
 
 	get colWidth(): string {
-		if (this.model.colDef.width)
-			return this.model.colDef.width
+		var w = this.model.colDef.cellWidth;
+		if (w)
+			return w
 				+ (this.model.colDef.widthUnit == WidthUnitType.px ? "px" : "%");
 	}
 

@@ -7,6 +7,7 @@ export class GridColumnDef {
 	label: string;
 	field: string;
 	width: number;
+	cellWidth: number;
 	minWidth: number;
 	widthUnit: WidthUnitType;
 	formatter: (cellData, cellIndex: number, rowData, rowIndex: number) => string;

@@ -6,6 +6,7 @@
     ViewEncapsulation,
     ChangeDetectionStrategy
 } from '@angular/core';
+import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
 import { ReactiveGridService, ReactiveGridPageService } from '../services/GridReactiveServices';
 import { SortingService } from '../services/SortingService';
@@ -56,10 +57,15 @@ export class AwGrid implements AfterViewInit {
     private _colsDef: GridColumnDef[];
     @Input() set columnsDef(cols: GridColumnDef[]) {
         this._colsDef = cols;
+        //adjust initial cellwidth
+        this._colsDef.forEach(col => {
+            col.cellWidth = col.width;
+        });
         this._colsSubj.next(cols);
         // this.refresh();
     }
     @Input() pageSize = 100;
+    @Input() emptyRowHeight = 35;
     @Input() height: string;
 
     @Input() selectionMode: SelectionMode = SelectionMode.multiple;
@@ -73,6 +79,8 @@ export class AwGrid implements AfterViewInit {
     @Output() onRowCreate: EventEmitter<GridRowEventModel> = new EventEmitter<GridRowEventModel>();
     @Output() onRowDestroy: EventEmitter<GridRowEventModel> = new EventEmitter<GridRowEventModel>();
     @Output() onClick: EventEmitter<GridClickEventModel> = new EventEmitter<GridClickEventModel>();
+
+    @ViewChild(CdkVirtualScrollViewport) body: CdkVirtualScrollViewport;
 
     get pages(): Page[] {
         if (!this._pages)
@@ -114,6 +122,19 @@ export class AwGrid implements AfterViewInit {
 
     ngAfterViewInit() {
         this.selectService.selectionMode = this.selectionMode;
+
+        this._teardowns.push(this.body.elementScrolled()
+            .debounceTime(500)
+            .distinctUntilChanged()
+            .subscribe(evt => {
+                //get visible pages
+                var visiblePages = this.body.elementRef.nativeElement.getElementsByClassName("tpage");
+                var pageIndexes = Array.from(visiblePages)
+                    .map((n) => parseInt(n.getAttribute("page-index"), 10))
+                    .filter(i => !isNaN(i));
+
+                this.onLiveScroll(pageIndexes);
+            }));
 
         // if (!!this._colsDef && this._colsDef.length > 0 && !this._colsDef.find(val => !val.width))
         //     //auto resize the last row
@@ -171,8 +192,7 @@ export class AwGrid implements AfterViewInit {
     }
 
     onLiveScroll(pagesToLoad: number[]) {
-        this.dataService.currentPages = pagesToLoad;
         this.dataService
-            .requestData(this.dataService.sortField, this.dataService.sortDsc, this.selected);
+            .changePages(pagesToLoad, this.dataService.sortField, this.dataService.sortDsc, this.selected);
     }
 }

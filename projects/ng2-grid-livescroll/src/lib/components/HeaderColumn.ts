@@ -47,6 +47,6 @@ export class HeaderColumn {
 		}
 
 		this.sortingService.sort(this.model);
-		this.gridReactiveService.requestData(this.model.field, this.sortingService.sortState.currentState.descending);
+		this.gridReactiveService.changePages([0], this.model.field, this.sortingService.sortState.currentState.descending);
 	}
 }

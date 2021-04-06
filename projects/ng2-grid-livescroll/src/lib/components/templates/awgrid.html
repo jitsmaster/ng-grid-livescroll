@@ -16,7 +16,7 @@
 				 [model]="colDef"></div>
 		</div>
 	</div>
-	<div class="tbody"
+	<!-- <div class="tbody"
 		 live-scroll
 		 [pages]="pages"
 		 (onLiveScroll)="onLiveScroll($event)">
@@ -27,8 +27,27 @@
 		<div aw-grid-page
 			 class="tpage"
 			 *ngFor="let page of pageServices | async"
+			 [emptyRowHeight]="emptyRowHeight"
+			 [pageRowCount]="pageSize"
 			 [pageService]="page"></div>
 		<div class="noRecords"
 			 *ngIf="!!initialized && totalCount === 0">{{noRecordsMessage}}</div>
-	</div>
+	</div> -->
+
+	<cdk-virtual-scroll-viewport class="tbody"
+								 [itemSize]="pageSize * emptyRowHeight">
+		<div style="text-align: center;padding:20px;"
+			 *ngIf="!initialized">
+			<span class="fa fa-spinner fa-pulse fa-3x"></span>
+		</div>
+		<div aw-grid-page
+			 class="tpage"
+			 [attr.page-index]="i"
+			 *cdkVirtualFor="let page of pageServices | async; let i = index;"
+			 [emptyRowHeight]="emptyRowHeight"
+			 [pageRowCount]="pageSize"
+			 [pageService]="page"></div>
+		<div class="noRecords"
+			 *ngIf="!!initialized && totalCount === 0">{{noRecordsMessage}}</div>
+	</cdk-virtual-scroll-viewport>
 </div>
