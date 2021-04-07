@@ -4,7 +4,8 @@
     QueryList,
     AfterViewInit,
     ViewEncapsulation,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    ChangeDetectorRef
 } from '@angular/core';
 import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
@@ -15,15 +16,15 @@ import { ColumnResizeService } from '../services/ColumnResizeService';
 import { DndService } from '../services/DndService';
 import { SelectionMode } from '../models/enums';
 import { GridColumnDef, GridRow, GridRowEventModel, GridClickEventModel } from '../models/GridModels';
-import { LiveScroll } from '../directives/liveScroll';
 import { Page } from './Page';
+import { fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
     selector: 'aw-grid',
     templateUrl: './templates/awgrid.html',
     styleUrls: ['./templates/awgrid.css'],
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    encapsulation: ViewEncapsulation.None
 })
 export class AwGrid implements AfterViewInit {
     private _colsSubj = new BehaviorSubject<GridColumnDef[]>([]);
@@ -65,13 +66,12 @@ export class AwGrid implements AfterViewInit {
         // this.refresh();
     }
     @Input() pageSize = 100;
-    @Input() emptyRowHeight = 35;
+    @Input() emptyRowHeight = 34;
     @Input() height: string;
 
     @Input() selectionMode: SelectionMode = SelectionMode.multiple;
     @Input() selected: string[];
 
-    @ViewChild(LiveScroll, { static: false }) liveScroll: LiveScroll;
     @ViewChildren(Page) _pages: QueryList<Page>;
 
     @Output() onSelect: EventEmitter<GridRow[]> = new EventEmitter<GridRow[]>();
@@ -82,17 +82,14 @@ export class AwGrid implements AfterViewInit {
 
     @ViewChild(CdkVirtualScrollViewport) body: CdkVirtualScrollViewport;
 
-    get pages(): Page[] {
-        if (!this._pages)
-            return [];
-        return this._pages.map(p => p);
-    }
-
     get totalCount(): number {
         return this.dataService.totalCount;
     }
 
-    constructor(public dataService: ReactiveGridService, public selectService: SelectService,
+    constructor(
+        public changeDetector: ChangeDetectorRef,
+        public dataService: ReactiveGridService,
+        public selectService: SelectService,
         public dndService: DndService) {
 
         this._teardowns = [
@@ -114,11 +111,13 @@ export class AwGrid implements AfterViewInit {
         ];
 
         this.pageServices = this.dataService.pages
-            .map(pages => {
-                setTimeout(() => this.fit(), 100);
-                return pages;
-            });
+            .pipe(
+                tap(() => setTimeout(() => this.fit(), 100))
+            );
     }
+
+    bodyScrollLeft: number = 0;
+    paddingRight: string = "21px";
 
     ngAfterViewInit() {
         this.selectService.selectionMode = this.selectionMode;
@@ -127,6 +126,19 @@ export class AwGrid implements AfterViewInit {
             .debounceTime(500)
             .distinctUntilChanged()
             .subscribe(evt => {
+                const container = (evt.target as HTMLElement);
+                //set scrollleft
+                this.bodyScrollLeft = container
+                    .scrollLeft;
+
+                //set header padding right
+                var scrollbarWidth = !container.firstElementChild ?
+                    0 :
+                    container.offsetWidth - (container.firstElementChild as HTMLElement).offsetWidth;
+
+                //set the topbar padding right
+                this.paddingRight = scrollbarWidth + "px";
+
                 //get visible pages
                 var visiblePages = this.body.elementRef.nativeElement.getElementsByClassName("tpage");
                 var pageIndexes = Array.from(visiblePages)
@@ -134,7 +146,18 @@ export class AwGrid implements AfterViewInit {
                     .filter(i => !isNaN(i));
 
                 this.onLiveScroll(pageIndexes);
+
+                this.changeDetector.detectChanges();
             }));
+
+        this._teardowns.push(
+            fromEvent(window, 'resize')
+                .pipe(
+                    distinctUntilChanged(),
+                    debounceTime(100))
+                .subscribe(() => {
+                    this.body.checkViewportSize();
+                }));
 
         // if (!!this._colsDef && this._colsDef.length > 0 && !this._colsDef.find(val => !val.width))
         //     //auto resize the last row
@@ -155,7 +178,7 @@ export class AwGrid implements AfterViewInit {
     }
 
     fit() {
-        this.liveScroll.fit();
+        this.body.checkViewportSize();
     }
 
     initialized: boolean = false;
@@ -167,9 +190,10 @@ export class AwGrid implements AfterViewInit {
                 this.initialized = true;
             });
 
+        this.body.scrollToIndex(0);
+
         this.dataService.initialize(this.pageSize, this._colsDef, this.idField);
         this.dataService.currentPages = [0];
-        this.liveScroll.reset();
         this.dataService.refresh();
     }
 
@@ -194,5 +218,8 @@ export class AwGrid implements AfterViewInit {
     onLiveScroll(pagesToLoad: number[]) {
         this.dataService
             .changePages(pagesToLoad, this.dataService.sortField, this.dataService.sortDsc, this.selected);
+
+        //on last page, prevent stuffing on scroll view port
+        this.body.checkViewportSize();
     }
 }

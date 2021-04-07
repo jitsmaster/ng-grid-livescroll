@@ -5,11 +5,11 @@
 	 [grid-droptarget]="acceptDropTypes"
 	 [drop-disabled]="!allowDrop">
 	<div class="thead"
-		 [scrollLeft]="(liveScroll?.scrollLeft | async) || 0"
+		 [scrollLeft]="bodyScrollLeft"
 		 column-resizer
 		 (onColumnResizing)="onColumnResizing($event)"
 		 [class.columnResizing]="columnResizing">
-		<div [style.paddingRight]="(liveScroll?.paddingRight | async) || 0">
+		<div [style.paddingRight]="paddingRight">
 			<div aw-grid-head-col
 				 class="th"
 				 *ngFor="let colDef of columns | async"

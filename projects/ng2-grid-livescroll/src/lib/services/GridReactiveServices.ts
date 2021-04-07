@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs/Rx';
 import { WidthUnitType } from '../models/enums';
 import { GridColumnDef, GridDataRequest, GridDataResponse, GridRow } from '../models/GridModels';
@@ -30,31 +30,31 @@ export class ReactiveGridPageService {
 		public pageSize: number,
 		public pageIndex: number,
 		public rowsCount: number) {
-
-		//create stubbing rows with no cells
-		//don't create rows, save performance
-		// this._rowsSubject.next(Array.from({ length: rowsCount }, (v, k) => {
-
-		// 	return {
-		// 		id: "",
-		// 		// selected: new AsyncPipeService<boolean>(false),
-		// 		selected: false,
-		// 		data: [{
-		// 			colDef: {
-		// 				field: "id",
-		// 				width: 100,
-		// 				widthUnit: WidthUnitType.percent
-		// 			} as GridColumnDef,
-		// 			value: `<span class="fa fa-spinner fa-pulse"></span>`
-		// 		}]
-		// 	} as GridRow;
-		// }));
 	}
 
 	rowsState: GridRow[];
 
 	//this is kind of change detection within Observable
 	private _currentRowsData: any[];
+
+	loading() {
+		//create stubbing rows with no cells
+		this._rowsSubject.next(Array.from({ length: this.rowsCount }, (v, k) => {
+			return {
+				id: "",
+				// selected: new AsyncPipeService<boolean>(false),
+				selected: false,
+				data: [{
+					colDef: {
+						field: "id",
+						width: 100,
+						widthUnit: WidthUnitType.percent
+					} as GridColumnDef,
+					value: `<span class="fa fa-spinner fa-pulse"></span>`
+				}]
+			} as GridRow;
+		}));
+	}
 
 	setData(rowsData: any[]) {
 		//prevent setting page data repeatedly
@@ -134,7 +134,9 @@ export class ReactiveGridService {
 		this.pageServices.forEach(page => page.allowDrag = val);
 	}
 
-	constructor(public dataService: GridDataServiceBase) {
+	constructor(
+		public dataService: GridDataServiceBase,
+		public changeDetector: ChangeDetectorRef) {
 	}
 
 	initialize(pageSize: number, columnsDef: GridColumnDef[], idField: string) {
@@ -285,6 +287,20 @@ export class ReactiveGridService {
 					};
 				});
 
+			//show loading to server side pagination
+			if (this.pageServices && this.pageServices.length > 0) {
+				pageRequests.forEach(p => {
+					if (p.page < this.pageServices.length) {
+						var pageService = this.pageServices[p.page];
+						if (pageService) {
+							pageService.loading();
+						}
+					}
+				});
+
+				this.changeDetector.detectChanges();
+			}
+
 			this.teardowns = pageRequests.map(pReq => {
 				return pReq.request
 					.subscribe(resp => {
@@ -312,6 +328,7 @@ export class ReactiveGridService {
 							this._pagesSubject.next(this.pageServices);
 
 							this.isFirstRequest = false;
+							this.changeDetector.detectChanges();
 						}
 
 						//if all rows are returned, set them directly, otherwise, set the first one
@@ -349,6 +366,7 @@ export class ReactiveGridService {
 				selectedRows.forEach(r => this.selectService.markAsSelected(r));
 
 			this.initialRequestDone.emit(true);
+			this.changeDetector.detectChanges();
 		}
 		else
 			throw new Error("Invalid grid data: Page data overflow.");
