@@ -25,6 +25,7 @@ export class ReactiveGridPageService {
 	clientDataFullfilled = false;
 
 	constructor(
+		public gridService: ReactiveGridService,
 		public columnsDef: GridColumnDef[],
 		public idField: string,
 		public pageSize: number,
@@ -61,11 +62,11 @@ export class ReactiveGridPageService {
 		if (!this.clientDataFullfilled || this._currentRowsData != rowsData) {
 			this.rowsState = rowsData.map((rowData, rowIndex) => {
 				var actualRowIndex = this.pageSize * this.pageIndex + rowIndex;
+				const id = rowData[this.idField];
 				return {
-					id: rowData[this.idField],
+					id: id,
 					index: actualRowIndex,
-					// selected: new AsyncPipeService<boolean>(false),
-					selected: false,
+					selected: this.gridService.selectedIds.indexOf(id) > -1,
 					data: this.columnsDef.map((colDef, colIndex) => {
 						var value = colDef.formatter ? colDef.formatter(
 							rowData[colDef.field], colIndex,
@@ -183,6 +184,7 @@ export class ReactiveGridService {
 		//add to the end of listing, which means the last page
 		if (!this.pageServices.length) {
 			var pageService = new ReactiveGridPageService(
+				this,
 				this.columnsDef,
 				this.idField,
 				this.pageSize,
@@ -316,6 +318,7 @@ export class ReactiveGridService {
 
 							this.pageServices = Array.from({ length: pages }, (v, k) => {
 								var s = new ReactiveGridPageService(
+									this,
 									this.columnsDef,
 									this.idField,
 									this.pageSize,

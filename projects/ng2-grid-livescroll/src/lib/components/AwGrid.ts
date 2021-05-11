@@ -117,7 +117,7 @@ export class AwGrid implements AfterViewInit {
     }
 
     bodyScrollLeft: number = 0;
-    paddingRight: string = "21px";
+    paddingRight: string = "17px";
 
     ngAfterViewInit() {
         this.selectService.selectionMode = this.selectionMode;
@@ -184,6 +184,13 @@ export class AwGrid implements AfterViewInit {
     initialized: boolean = false;
 
     refresh() {
+        if (!this.body) {
+            setTimeout(() => {
+                this.refresh();
+            }, 100);
+            return;
+        }
+
         let sub = this.dataService.initialRequestDone
             .subscribe(data => {
                 sub.unsubscribe();
@@ -208,11 +215,11 @@ export class AwGrid implements AfterViewInit {
 
         //use reducer to realize selectMany
         var selectedRows = this.dataService.pageServices
-            .map(s => s.rowsState)
+            .map(s => s.rowsState || [])
             .reduce((x, y) => x.concat(y))
             .filter(r => this.selected.find(id => id == r.id));
 
-        this.selectService.selectMany(selectedRows);
+        this.selectService.selectMany(selectedRows, true);
     }
 
     onLiveScroll(pagesToLoad: number[]) {

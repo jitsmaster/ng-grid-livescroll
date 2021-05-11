@@ -21,7 +21,7 @@
     "angular",
     "angular9"
   ],
-  "version": "1.0.109",
+  "version": "1.0.112",
   "license": "MIT",
   "scripts": {
     "pub": "gulp && npm publish",

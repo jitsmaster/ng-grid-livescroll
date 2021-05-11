@@ -44,9 +44,10 @@ export class SelectService {
 		this.dataService.selectedIndexes = [];
 	}
 
-	additionalSelect(row: GridRow) {
+	additionalSelect(row: GridRow, noEvent?: boolean) {
 		this.markAsSelected(row);
-		this.onSelect.emit(this.selected);
+		if (!noEvent)
+			this.onSelect.emit(this.selected);
 	}
 
 	markAsSelected(row: GridRow) {
@@ -66,9 +67,9 @@ export class SelectService {
 
 	}
 
-	selectMany(rows: GridRow[]) {
+	selectMany(rows: GridRow[], noEvent?: boolean) {
 		this.clear();
-		rows.forEach(r => this.additionalSelect(r));
+		rows.forEach(r => this.additionalSelect(r, noEvent));
 	}
 
 	endSelect(row: GridRow) {
