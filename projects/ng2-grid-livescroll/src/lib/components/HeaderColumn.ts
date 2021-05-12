@@ -4,6 +4,7 @@ import { WidthUnitType } from '../models/enums';
 import { AsyncPipeService } from '../services/AsyncPipeService';
 import { ReactiveGridService } from '../services/GridReactiveServices';
 import { SortingService } from '../services/SortingService';
+import { AwGrid } from './AwGrid';
 
 @Component({
 	templateUrl: "./templates/HeaderColumn.html",
@@ -19,7 +20,9 @@ export class HeaderColumn {
 
 	@Input() model: GridColumnDef;
 
-	constructor(public gridReactiveService: ReactiveGridService,
+	constructor(
+		private grid: AwGrid,
+		public gridReactiveService: ReactiveGridService,
 		public sortingService: SortingService) {
 	}
 
@@ -47,6 +50,11 @@ export class HeaderColumn {
 		}
 
 		this.sortingService.sort(this.model);
-		this.gridReactiveService.changePages([0], this.model.field, this.sortingService.sortState.currentState.descending);
+
+		this.grid.scrollTo(0);
+
+		this.grid.onLiveScroll([0], this.model.field,
+			this.sortingService.sortState.currentState.descending);
+		// this.gridReactiveService.changePages([0], this.model.field, this.sortingService.sortState.currentState.descending);
 	}
 }

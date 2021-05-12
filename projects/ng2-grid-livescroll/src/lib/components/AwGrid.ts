@@ -145,7 +145,7 @@ export class AwGrid implements AfterViewInit {
                     .map((n) => parseInt(n.getAttribute("page-index"), 10))
                     .filter(i => !isNaN(i));
 
-                this.onLiveScroll(pageIndexes);
+                this.onLiveScroll(pageIndexes, this.dataService.sortField, this.dataService.sortDsc);
 
                 this.changeDetector.detectChanges();
             }));
@@ -169,6 +169,10 @@ export class AwGrid implements AfterViewInit {
 
     ngOnDestroy() {
         this._teardowns.forEach(t => t.unsubscribe());
+    }
+
+    scrollTo(pageIndex: number) {
+        this.body.scrollToIndex(pageIndex);
     }
 
     columnResizing: boolean = false;
@@ -197,10 +201,10 @@ export class AwGrid implements AfterViewInit {
                 this.initialized = true;
             });
 
-        this.body.scrollToIndex(0);
-
         this.dataService.initialize(this.pageSize, this._colsDef, this.idField);
         this.dataService.currentPages = [0];
+
+        this.scrollTo(0);
         this.dataService.refresh();
     }
 
@@ -222,9 +226,10 @@ export class AwGrid implements AfterViewInit {
         this.selectService.selectMany(selectedRows, true);
     }
 
-    onLiveScroll(pagesToLoad: number[]) {
+    onLiveScroll(pagesToLoad: number[],
+        sortField: string, sortDsc: boolean) {
         this.dataService
-            .changePages(pagesToLoad, this.dataService.sortField, this.dataService.sortDsc, this.selected);
+            .changePages(pagesToLoad, sortField || this.dataService.sortField, sortDsc, this.selected);
 
         //on last page, prevent stuffing on scroll view port
         this.body.checkViewportSize();
