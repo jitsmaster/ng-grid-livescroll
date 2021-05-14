@@ -255,7 +255,7 @@ export class ReactiveGridService {
 	requestData(sortField: string, sortDsc: boolean, selectedIds?: string[],
 		pagesToRequest?: number[]) {
 
-		this.currentPages = pagesToRequest;
+		this.currentPages = pagesToRequest || [0];
 
 		if (selectedIds)
 			this.selectedIds = selectedIds;

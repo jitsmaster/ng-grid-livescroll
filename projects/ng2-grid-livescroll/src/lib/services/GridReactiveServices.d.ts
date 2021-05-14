@@ -47,6 +47,6 @@ export declare class ReactiveGridService {
     refresh(): void;
     addRows(rows: GridRow[], toEnd?: boolean): void;
     removeRows(rows: GridRow[]): void;
-    requestData(sortField: string, sortDsc: boolean, selectedIds?: string[]): void;
+    requestData(sortField: string, sortDsc: boolean, selectedIds?: string[], pagesToRequest?: number[]): void;
     private _setPageData(resp);
 }
