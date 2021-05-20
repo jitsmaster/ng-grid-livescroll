@@ -216,6 +216,10 @@ export class ReactiveGridService {
 
 	changePages(pagesToLoad: number[],
 		sortField: string, sortDsc: boolean, selectedIds?: string[]) {
+		if (!pagesToLoad) {
+			pagesToLoad = [0];
+		}
+
 		if (sortField != this.sortField
 			|| sortDsc != this.sortDsc) {
 			this.isFirstRequest = true;
@@ -250,18 +254,19 @@ export class ReactiveGridService {
 				selectedIds,
 				pagesToLoad);
 		}
+
+		this.currentPages = pagesToLoad;
+
 	}
 
 	requestData(sortField: string, sortDsc: boolean, selectedIds?: string[],
 		pagesToRequest?: number[]) {
 
-		this.currentPages = pagesToRequest || [0];
-
 		if (selectedIds)
 			this.selectedIds = selectedIds;
 
 		//preventing requesting the same page twice
-		var actualPagesToRequest = this.currentPages;
+		var actualPagesToRequest = pagesToRequest;
 
 		//if all rows already set, use it directly,
 		//this is the client side live scroll
