@@ -3,6 +3,7 @@ import { GridRow } from '../models/GridModels';
 import { SelectService } from '../services/SelectService';
 import { DndService } from '../services/DndService';
 import { DragSourceModel, DropTargetModel } from '../models/DndModels';
+import { SelectionMode } from '../models/enums';
 
 @Component({
 	templateUrl: "./templates/Row.html",
@@ -19,6 +20,7 @@ import { DragSourceModel, DropTargetModel } from '../models/DndModels';
 })
 export class Row {
 	@Input() model: GridRow;
+	@Input() selectionMode: SelectionMode;
 
 	constructor(public ele: ElementRef, public selectService: SelectService,
 		public dndService: DndService) {
@@ -40,9 +42,11 @@ export class Row {
 
 	onRowClick(row: GridRow, evt: MouseEvent) {
 		if (evt.ctrlKey) {
+			this.selectService.selectionMode = SelectionMode.multiple;
 			this.selectService.additionalSelect(row);
 		}
 		else if (evt.shiftKey) {
+			this.selectService.selectionMode = SelectionMode.multiple;
 			this.selectService.endSelect(row);
 		}
 		else {
