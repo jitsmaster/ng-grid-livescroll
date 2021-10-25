@@ -5,7 +5,8 @@
     AfterViewInit,
     ViewEncapsulation,
     ChangeDetectionStrategy,
-    ChangeDetectorRef
+    ChangeDetectorRef,
+    NgZone
 } from '@angular/core';
 import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
@@ -90,7 +91,8 @@ export class AwGrid implements AfterViewInit {
         public changeDetector: ChangeDetectorRef,
         public dataService: ReactiveGridService,
         public selectService: SelectService,
-        public dndService: DndService) {
+        public dndService: DndService,
+        private zone: NgZone) {
 
         this._teardowns = [
             this.selectService.onSelect.subscribe(evt => {
@@ -120,6 +122,12 @@ export class AwGrid implements AfterViewInit {
     paddingRight: string = "17px";
 
     ngAfterViewInit() {
+        this.zone.onStable.subscribe(() => {
+            var scrollBody = this.body.elementRef.nativeElement;
+            this.paddingRight = !scrollBody.firstElementChild ? "0px" :
+                scrollBody.offsetWidth - (scrollBody.firstElementChild as HTMLElement).offsetWidth + "px";
+        });
+        
         this.selectService.selectionMode = this.selectionMode;
 
         this._teardowns.push(this.body.elementScrolled()
@@ -130,14 +138,6 @@ export class AwGrid implements AfterViewInit {
                 //set scrollleft
                 this.bodyScrollLeft = container
                     .scrollLeft;
-
-                //set header padding right
-                var scrollbarWidth = !container.firstElementChild ?
-                    0 :
-                    container.offsetWidth - (container.firstElementChild as HTMLElement).offsetWidth;
-
-                //set the topbar padding right
-                this.paddingRight = scrollbarWidth + "px";
 
                 //get visible pages
                 var visiblePages = this.body.elementRef.nativeElement.getElementsByClassName("tpage");
