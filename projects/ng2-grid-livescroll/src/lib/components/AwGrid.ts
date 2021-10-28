@@ -83,8 +83,15 @@ export class AwGrid implements AfterViewInit {
 
     @ViewChild(CdkVirtualScrollViewport) body: CdkVirtualScrollViewport;
 
+    protected scrollHeight = this.pageSize;
+
     get totalCount(): number {
         return this.dataService.totalCount;
+    }
+
+    get itemSize(): number {
+        this.scrollHeight = (this.totalCount < this.pageSize) ? this.totalCount : this.pageSize;
+        return this.scrollHeight * this.emptyRowHeight;
     }
 
     constructor(
