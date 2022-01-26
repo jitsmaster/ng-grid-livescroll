@@ -1,4 +1,4 @@
-import { Observable, BehaviorSubject, Subscription } from 'rxjs/Rx';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 import { GridColumnDef, GridRow } from '../models/GridModels';
 import { GridDataServiceBase } from './GridDataService';
 import { SelectService } from './SelectService';

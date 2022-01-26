@@ -1,5 +1,5 @@
 import { ElementRef } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { Page } from '../components/Page';
 export declare class LiveScroll {
     private ele;

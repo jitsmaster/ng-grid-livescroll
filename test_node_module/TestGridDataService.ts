@@ -1,5 +1,5 @@
 import { GridDataServiceBase } from '../src/services/GridDataService';
-import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { GridDataResponse } from 'Ng2-Grid-LiveScroll';
 
 export class TestGridDataService extends GridDataServiceBase {

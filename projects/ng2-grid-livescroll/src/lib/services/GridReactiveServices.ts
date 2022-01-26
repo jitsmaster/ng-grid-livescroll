@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter, ChangeDetectorRef } from '@angular/core';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs/Rx';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 import { WidthUnitType } from '../models/enums';
 import { GridColumnDef, GridDataRequest, GridDataResponse, GridRow } from '../models/GridModels';
 import { GridDataServiceBase } from './GridDataService';

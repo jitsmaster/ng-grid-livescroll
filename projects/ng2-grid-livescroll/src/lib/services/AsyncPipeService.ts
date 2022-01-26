@@ -1,5 +1,5 @@
 import {Type} from "@angular/core"
-import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 export class AsyncPipeService<T> {
 	constructor(public currentState: T) {
