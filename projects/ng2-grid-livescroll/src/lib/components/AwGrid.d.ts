@@ -1,5 +1,5 @@
 import { EventEmitter, QueryList, AfterViewInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { ReactiveGridService, ReactiveGridPageService } from '../services/GridReactiveServices';
 import { SelectService } from '../services/SelectService';
 import { DndService } from '../services/DndService';

@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 export declare class AsyncPipeService<T> {
     currentState: T;
     constructor(currentState: T);

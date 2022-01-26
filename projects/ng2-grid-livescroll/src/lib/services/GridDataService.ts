@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { GridDataResponse } from '../models/GridModels';
 
 export abstract class GridDataServiceBase {

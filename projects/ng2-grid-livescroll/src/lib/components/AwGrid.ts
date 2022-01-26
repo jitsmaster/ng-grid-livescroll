@@ -9,7 +9,7 @@
     NgZone
 } from '@angular/core';
 import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
-import { BehaviorSubject, Observable } from 'rxjs/Rx';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ReactiveGridService, ReactiveGridPageService } from '../services/GridReactiveServices';
 import { SortingService } from '../services/SortingService';
 import { SelectService } from '../services/SelectService';
@@ -131,8 +131,9 @@ export class AwGrid implements AfterViewInit {
         this.selectService.selectionMode = this.selectionMode;
 
         this._teardowns.push(this.body.elementScrolled()
-            .debounceTime(500)
-            .distinctUntilChanged()
+            .pipe(
+                debounceTime(500),
+                distinctUntilChanged())
             .subscribe(evt => {
                 const container = (evt.target as HTMLElement);
                 //set scrollleft
