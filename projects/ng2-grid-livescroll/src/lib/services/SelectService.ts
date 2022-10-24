@@ -75,6 +75,9 @@ export class SelectService {
 	endSelect(row: GridRow) {
 		if (!row)
 			return;
+		
+		if (this.selected.length > 0 && this.selectionMode == SelectionMode.single)
+			return;
 
 		if (!this.startSelected)
 			this.select(row);
